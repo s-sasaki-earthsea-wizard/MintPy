@@ -1,0 +1,23 @@
+MintPy version 1.6.3, date 2025-11-24
+--RUN-at-2026-04-26 10:34:18.700878--
+Current directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+Run routine processing with smallbaselineApp.py on steps: ['hdfeos5']
+Remaining steps: []
+--------------------------------------------------
+Project name: FernandinaSenDT128
+Go to work directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+read custom template file: /mnt/nas/Projects/third-party-projects/MintPy/docs/templates/FernandinaSenDT128.txt
+update default template based on input custom template
+No new option value found, skip updating /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+read default template file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+
+
+******************** step - hdfeos5 ********************
+save time-series to HDF-EOS5 format is OFF.
+Go back to directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+
+################################################
+   Normal end of smallbaselineApp processing!
+################################################
+Time used: 00 mins 0.1 secs
+

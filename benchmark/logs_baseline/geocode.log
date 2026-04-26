@@ -1,0 +1,168 @@
+MintPy version 1.6.3, date 2025-11-24
+--RUN-at-2026-04-26 10:33:18.076300--
+Current directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+Run routine processing with smallbaselineApp.py on steps: ['geocode']
+Remaining steps: ['google_earth', 'hdfeos5']
+--------------------------------------------------
+Project name: FernandinaSenDT128
+Go to work directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+read custom template file: /mnt/nas/Projects/third-party-projects/MintPy/docs/templates/FernandinaSenDT128.txt
+update default template based on input custom template
+No new option value found, skip updating /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+read default template file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+
+
+******************** step - geocode ********************
+
+geocode.py /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/inputs/geometryRadar.h5 temporalCoherence.h5 avgSpatialCoh.h5 /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5 velocity.h5 -l /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/inputs/geometryRadar.h5 -t /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg --outdir /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo --update
+read input option from template file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+number of processor to be used: 1
+resampling software: pyresample
+read latitude / longitude from lookup table file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/inputs/geometryRadar.h5
+calculate output pixel size using approach 1 (same pixel area before/after resampling)
+output pixel size in (lat, lon) in degree: (np.float64(-0.0005978562602177892), np.float64(0.000624965835773051))
+output area extent in (S, N, W, E) in degree: (np.float64(-0.5498193264640077), np.float64(-0.20366055179790776), np.float64(-91.70539823731242), np.float64(-91.33854329171365))
+output file row / column number: (579, 587)
+[1/1] preparing geometry for dest_box: (0, 0, 587, 579) --> full src_box: (0, 0, 600, 450)
+--------------------------------------------------
+resampling file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/inputs/geometryRadar.h5
+update mode: ON
+--------------------------------------------------
+grab dataset structure from ref_file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/inputs/geometryRadar.h5
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_geometryRadar.h5 with w mode
+create dataset  : azimuthAngle       of float32                   in size of (579, 587)           with compression = lzf
+create dataset  : height             of float32                   in size of (579, 587)           with compression = lzf
+create dataset  : incidenceAngle     of float32                   in size of (579, 587)           with compression = lzf
+create dataset  : latitude           of float32                   in size of (579, 587)           with compression = lzf
+create dataset  : longitude          of float32                   in size of (579, 587)           with compression = lzf
+create dataset  : shadowMask         of bool                      in size of (579, 587)           with compression = lzf
+create dataset  : slantRangeDistance of float32                   in size of (579, 587)           with compression = lzf
+close  HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_geometryRadar.h5
+--------------------------------------------------1/1
+reading azimuthAngle       in block (0, 0, 600, 450) from geometryRadar.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_geometryRadar.h5
+--------------------------------------------------1/1
+reading height             in block (0, 0, 600, 450) from geometryRadar.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_geometryRadar.h5
+--------------------------------------------------1/1
+reading incidenceAngle     in block (0, 0, 600, 450) from geometryRadar.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_geometryRadar.h5
+--------------------------------------------------1/1
+reading latitude           in block (0, 0, 600, 450) from geometryRadar.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_geometryRadar.h5
+--------------------------------------------------1/1
+reading longitude          in block (0, 0, 600, 450) from geometryRadar.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_geometryRadar.h5
+--------------------------------------------------1/1
+reading shadowMask         in block (0, 0, 600, 450) from geometryRadar.h5 ...
+input source data is bool type, restrict fill_value to False.
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_geometryRadar.h5
+--------------------------------------------------1/1
+reading slantRangeDistance in block (0, 0, 600, 450) from geometryRadar.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_geometryRadar.h5
+--------------------------------------------------
+resampling file: temporalCoherence.h5
+update mode: ON
+update REF_LAT/LON/Y/X
+--------------------------------------------------
+grab dataset structure from ref_file: temporalCoherence.h5
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_temporalCoherence.h5 with w mode
+create dataset  : temporalCoherence of float32                   in size of (579, 587)           with compression = None
+close  HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_temporalCoherence.h5
+--------------------------------------------------1/1
+reading temporalCoherence in block (0, 0, 600, 450) from temporalCoherence.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_temporalCoherence.h5
+--------------------------------------------------
+resampling file: avgSpatialCoh.h5
+update mode: ON
+--------------------------------------------------
+grab dataset structure from ref_file: avgSpatialCoh.h5
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_avgSpatialCoh.h5 with w mode
+create dataset  : coherence of float32                   in size of (579, 587)           with compression = None
+close  HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_avgSpatialCoh.h5
+--------------------------------------------------1/1
+reading coherence in block (0, 0, 600, 450) from avgSpatialCoh.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_avgSpatialCoh.h5
+--------------------------------------------------
+resampling file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5
+update mode: ON
+update REF_LAT/LON/Y/X
+--------------------------------------------------
+grab dataset structure from ref_file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_timeseries_ERA5_ramp_demErr.h5 with w mode
+create dataset  : bperp      of float32                   in size of (98,)                with compression = None
+create dataset  : date       of |S8                       in size of (98,)                with compression = None
+create dataset  : timeseries of float32                   in size of (98, 579, 587)       with compression = None
+close  HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_timeseries_ERA5_ramp_demErr.h5
+--------------------------------------------------1/1
+reading timeseries in block (0, 0, 600, 450) from timeseries_ERA5_ramp_demErr.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 98, 0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_timeseries_ERA5_ramp_demErr.h5
+--------------------------------------------------
+resampling file: velocity.h5
+update mode: ON
+update REF_LAT/LON/Y/X
+--------------------------------------------------
+grab dataset structure from ref_file: velocity.h5
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.h5 with w mode
+create dataset  : intercept    of float32                   in size of (579, 587)           with compression = None
+create dataset  : interceptStd of float32                   in size of (579, 587)           with compression = None
+create dataset  : residue      of float32                   in size of (579, 587)           with compression = None
+create dataset  : velocity     of float32                   in size of (579, 587)           with compression = None
+create dataset  : velocityStd  of float32                   in size of (579, 587)           with compression = None
+add /intercept    attribute: UNIT = m
+add /interceptStd attribute: UNIT = m
+add /residue      attribute: UNIT = m
+add /velocity     attribute: UNIT = m/year
+add /velocityStd  attribute: UNIT = m/year
+close  HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.h5
+--------------------------------------------------1/1
+reading velocity     in block (0, 0, 600, 450) from velocity.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.h5
+--------------------------------------------------1/1
+reading velocityStd  in block (0, 0, 600, 450) from velocity.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.h5
+--------------------------------------------------1/1
+reading intercept    in block (0, 0, 600, 450) from velocity.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.h5
+--------------------------------------------------1/1
+reading interceptStd in block (0, 0, 600, 450) from velocity.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.h5
+--------------------------------------------------1/1
+reading residue      in block (0, 0, 600, 450) from velocity.h5 ...
+nearest resampling with pyresample.kd_tree using 1 CPU cores in 1 segments ...
+write data in block [0, 579, 0, 587] to file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.h5
+time used: 00 mins 6.5 secs.
+
+
+generate_mask.py /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_temporalCoherence.h5 -m 0.7 -o /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_maskTempCoh.h5 --base /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_geometryRadar.h5 --base-dataset shadowMask --base-value 1
+input temporalCoherence file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_temporalCoherence.h5
+read /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_temporalCoherence.h5
+create initial mask with the same size as the input file and all = 1
+all pixels with nan value = 0
+exclude pixels with value < 0.7
+exclude pixels in base file geo_geometryRadar.h5 dataset shadowMask with value == 1.0
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_maskTempCoh.h5 with w mode
+create dataset /mask of bool       in size of (579, 587)           with compression=None
+finished writing to /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_maskTempCoh.h5
+time used: 00 mins 0.0 secs.
+Go back to directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+
+################################################
+   Normal end of smallbaselineApp processing!
+################################################
+Time used: 00 mins 8.8 secs
+

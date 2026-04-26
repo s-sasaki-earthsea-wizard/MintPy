@@ -1,0 +1,23 @@
+MintPy version 1.6.3, date 2025-11-24
+--RUN-at-2026-04-26 10:27:46.532707--
+Current directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+Run routine processing with smallbaselineApp.py on steps: ['correct_LOD']
+Remaining steps: ['correct_SET', 'correct_ionosphere', 'correct_troposphere', 'deramp', 'correct_topography', 'residual_RMS', 'reference_date', 'velocity', 'geocode', 'google_earth', 'hdfeos5']
+--------------------------------------------------
+Project name: FernandinaSenDT128
+Go to work directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+read custom template file: /mnt/nas/Projects/third-party-projects/MintPy/docs/templates/FernandinaSenDT128.txt
+update default template based on input custom template
+No new option value found, skip updating /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+read default template file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+
+
+******************** step - correct_LOD ********************
+No local oscillator drift correction is needed for Sen.
+Go back to directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+
+################################################
+   Normal end of smallbaselineApp processing!
+################################################
+Time used: 00 mins 0.9 secs
+

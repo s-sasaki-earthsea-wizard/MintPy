@@ -1,0 +1,3 @@
+# Benchmark run logs are canonical records — keep them tracked
+# (overrides root .gitignore's `*.log`).
+!**/*.log

@@ -1,0 +1,44 @@
+MintPy version 1.6.3, date 2025-11-24
+--RUN-at-2026-04-26 10:33:48.623373--
+Current directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+Run routine processing with smallbaselineApp.py on steps: ['google_earth']
+Remaining steps: ['hdfeos5']
+--------------------------------------------------
+Project name: FernandinaSenDT128
+Go to work directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+read custom template file: /mnt/nas/Projects/third-party-projects/MintPy/docs/templates/FernandinaSenDT128.txt
+update default template based on input custom template
+No new option value found, skip updating /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+read default template file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+
+
+******************** step - google_earth ********************
+creating Google Earth KMZ file for geocoded velocity file: ...
+
+save_kmz.py /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.h5 -o /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.kmz
+data   coverage in y/x: (0, 0, 587, 579)
+subset coverage in y/x: (0, 0, 587, 579)
+update LENGTH, WIDTH, Y/XMAX
+update/add SUBSET_XMIN/YMIN/XMAX/YMAX: 0/0/587/579
+update Y/X_FIRST
+update REF_Y/X
+read mask from file: geo_maskTempCoh.h5
+masking out pixels with zero value in file: None
+colormap: jet
+plotting data ...
+figure size : [12.7, 12.0]
+show reference point
+writing /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity_data.png with dpi=600
+writing /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity_cbar.png
+writing /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.kml
+remove /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.kml
+remove /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity_data.png
+remove /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity_cbar.png
+merged all files to /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/geo/geo_velocity.kmz
+Go back to directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+
+################################################
+   Normal end of smallbaselineApp processing!
+################################################
+Time used: 00 mins 9.1 secs
+

@@ -1,0 +1,46 @@
+MintPy version 1.6.3, date 2025-11-24
+--RUN-at-2026-04-26 10:29:11.974706--
+Current directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+Run routine processing with smallbaselineApp.py on steps: ['correct_troposphere']
+Remaining steps: ['deramp', 'correct_topography', 'residual_RMS', 'reference_date', 'velocity', 'geocode', 'google_earth', 'hdfeos5']
+--------------------------------------------------
+Project name: FernandinaSenDT128
+Go to work directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+read custom template file: /mnt/nas/Projects/third-party-projects/MintPy/docs/templates/FernandinaSenDT128.txt
+update default template based on input custom template
+No new option value found, skip updating /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+read default template file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+
+
+******************** step - correct_troposphere ********************
+Atmospheric correction using Weather Re-analysis dataset (PyAPS, Jolivet et al., 2011)
+Weather Re-analysis dataset: ERA5
+--------------------------------------------
+Use existed tropospheric delay file: ./inputs/ERA5.h5
+
+diff.py /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries.h5 ./inputs/ERA5.h5 -o /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5.h5 --force
+/mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries.h5 - ['./inputs/ERA5.h5'] --> /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5.h5
+the 1st input file is: timeseries
+--------------------------------------------------
+grab metadata from ref_file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries.h5
+grab dataset structure from ref_file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries.h5
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5.h5 with w mode
+create dataset  : bperp      of float32                   in size of (98,)                with compression = None
+create dataset  : date       of |S8                       in size of (98,)                with compression = None
+create dataset  : timeseries of float32                   in size of (98, 450, 600)       with compression = None
+close  HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5.h5
+read from file: ./inputs/ERA5.h5
+* referencing data from ERA5.h5 to date: 20141213
+read from file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries.h5
+--------------------------------------------------
+open  HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5.h5 in a mode
+writing dataset /timeseries                block: [0, 98, 0, 450, 0, 600]
+close HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5.h5.
+time used: 00 mins 4.4 secs
+Go back to directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+
+################################################
+   Normal end of smallbaselineApp processing!
+################################################
+Time used: 00 mins 7.3 secs
+

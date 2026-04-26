@@ -1,0 +1,91 @@
+MintPy version 1.6.3, date 2025-11-24
+--RUN-at-2026-04-26 10:30:21.542515--
+Current directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+Run routine processing with smallbaselineApp.py on steps: ['correct_topography']
+Remaining steps: ['residual_RMS', 'reference_date', 'velocity', 'geocode', 'google_earth', 'hdfeos5']
+--------------------------------------------------
+Project name: FernandinaSenDT128
+Go to work directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+read custom template file: /mnt/nas/Projects/third-party-projects/MintPy/docs/templates/FernandinaSenDT128.txt
+update default template based on input custom template
+No new option value found, skip updating /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+read default template file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+
+
+******************** step - correct_topography ********************
+
+dem_error.py /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp.h5 -t /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg -o /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5 --update -g /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/inputs/geometryRadar.h5
+read options from template file: smallbaselineApp.cfg
+--------------------------------------------------
+update mode: ON
+1) output file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5 NOT found.
+run or skip: run.
+save the original settings of ['OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS']
+set OMP_NUM_THREADS = 1
+set OPENBLAS_NUM_THREADS = 1
+set MKL_NUM_THREADS = 1
+set NUMEXPR_NUM_THREADS = 1
+set VECLIB_MAXIMUM_THREADS = 1
+open timeseries file: timeseries_ERA5_ramp.h5
+--------------------------------------------------------------------------------
+correct topographic phase residual (DEM error) (Fattahi & Amelung, 2013, IEEE-TGRS)
+ordinal least squares (OLS) inversion with L2-norm minimization on: phase
+temporal deformation model: polynomial order = 2
+temporal deformation model: step functions at ['20170910', '20180613']
+--------------------------------------------------------------------------------
+add/update the following configuration metadata to file:
+['polyOrder', 'phaseVelocity', 'stepDate', 'excludeDate']
+--------------------------------------------------
+create HDF5 file: demErr.h5 with w mode
+create dataset  : dem of <class 'numpy.float32'>   in size of (450, 600)           with compression = None
+close  HDF5 file: demErr.h5
+--------------------------------------------------
+grab dataset structure from ref_file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp.h5
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5 with w mode
+create dataset  : bperp      of float32                   in size of (98,)                with compression = None
+create dataset  : date       of |S8                       in size of (98,)                with compression = None
+create dataset  : timeseries of float32                   in size of (98, 450, 600)       with compression = None
+close  HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5
+--------------------------------------------------
+grab dataset structure from ref_file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp.h5
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseriesResidual.h5 with w mode
+create dataset  : bperp      of float32                   in size of (98,)                with compression = None
+create dataset  : date       of |S8                       in size of (98,)                with compression = None
+create dataset  : timeseries of float32                   in size of (98, 450, 600)       with compression = None
+close  HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseriesResidual.h5
+open geometry file: geometryRadar.h5
+read 2D incidenceAngle, slantRangeDistance from geometry file: geometryRadar.h5
+read mean bperp from timeseries file
+skip pixels with ZERO in ALL acquisitions
+skip pixels with NaN  in ANY acquisitions
+skip pixels with ZERO temporal coherence
+skip pixels with ZERO / NaN value in incidenceAngle / slantRangeDistance
+number of pixels to invert: 157667 out of 270000 (58.4%)
+estimating DEM error pixel-wisely ...
+[>                                                 ][=>                       3%                       ] 4000/157667    0s /     8s[=>                       4%                       ] 6000/157667    0s /     8s[=>                       5%                       ] 8000/157667    0s /     8s[==>                      6%                       ] 10000/157667    0s /     8s[===>                     8%                       ] 12000/157667    0s /     8s[===>                     9%                       ] 14000/157667    0s /     8s[====>                   10%                       ] 16000/157667    1s /     9s[=====>                  11%                       ] 18000/157667    1s /     9s[=====>                  13%                       ] 20000/157667    1s /     8s[======>                 14%                       ] 22000/157667    1s /     8s[=======>                15%                       ] 24000/157667    1s /     8s[=======>                16%                       ] 26000/157667    1s /     8s[========>               18%                       ] 28000/157667    1s /     7s[=========>              19%                       ] 30000/157667    1s /     7s[=========>              20%                       ] 32000/157667    1s /     7s[==========>             22%                       ] 34000/157667    2s /     7s[===========>            23%                       ] 36000/157667    2s /     7s[===========>            24%                       ] 38000/157667    2s /     7s[===========>            25%                       ] 40000/157667    2s /     6s[=============>          27%                       ] 42000/157667    2s /     6s[=============>          28%                       ] 44000/157667    2s /     6s[=============>          29%                       ] 46000/157667    2s /     6s[==============>         30%                       ] 48000/157667    2s /     6s[===============>        32%                       ] 50000/157667    2s /     5s[===============>        33%                       ] 52000/157667    2s /     5s[================>       34%                       ] 54000/157667    2s /     5s[=================>      36%                       ] 56000/157667    3s /     5s[=================>      37%                       ] 58000/157667    3s /     5s[==================>     38%                       ] 60000/157667    3s /     5s[===================>    39%                       ] 62000/157667    3s /     5s[===================>    41%                       ] 64000/157667    3s /     5s[====================>   42%                       ] 66000/157667    3s /     5s[=====================>  43%                       ] 68000/157667    3s /     5s[=====================>  44%                       ] 70000/157667    3s /     4s[======================> 46%                       ] 72000/157667    3s /     4s[======================= 47%                       ] 74000/157667    4s /     4s[======================= 48%                       ] 76000/157667    4s /     4s[======================= 49%                       ] 78000/157667    4s /     4s[======================= 51%                       ] 80000/157667    4s /     4s[======================= 52%                       ] 82000/157667    4s /     4s[======================= 53%                       ] 84000/157667    4s /     4s[======================= 55%                       ] 86000/157667    4s /     3s[======================= 56%                       ] 88000/157667    4s /     3s[======================= 57%                       ] 90000/157667    4s /     3s[======================= 58% >                     ] 92000/157667    5s /     3s[======================= 60% =>                    ] 94000/157667    5s /     3s[======================= 61% =>                    ] 96000/157667    5s /     3s[======================= 62% ==>                   ] 98000/157667    5s /     3s[======================= 63% ===>                  ] 100000/157667    5s /     3s[======================= 65% ===>                  ] 102000/157667    5s /     2s[======================= 66% ====>                 ] 104000/157667    5s /     2s[======================= 67% =====>                ] 106000/157667    5s /     2s[======================= 68% =====>                ] 108000/157667    5s /     2s[======================= 70% ======>               ] 110000/157667    5s /     2s[======================= 71% =======>              ] 112000/157667    5s /     2s[======================= 72% =======>              ] 114000/157667    5s /     2s[======================= 74% ========>             ] 116000/157667    6s /     2s[======================= 75% =========>            ] 118000/157667    6s /     2s[======================= 76% =========>            ] 120000/157667    6s /     1s[======================= 77% =========>            ] 122000/157667    6s /     1s[======================= 79% ===========>          ] 124000/157667    6s /     1s[======================= 80% ===========>          ] 126000/157667    6s /     1s[======================= 81% ===========>          ] 128000/157667    6s /     1s[======================= 82% ============>         ] 130000/157667    6s /     1s[======================= 84% =============>        ] 132000/157667    6s /     1s[======================= 85% =============>        ] 134000/157667    7s /     1s[======================= 86% ==============>       ] 136000/157667    7s /     1s[======================= 88% ===============>      ] 138000/157667    7s /     1s[======================= 89% ===============>      ] 140000/157667    7s /     0s[======================= 90% ================>     ] 142000/157667    7s /     0s[======================= 91% =================>    ] 144000/157667    7s /     0s[======================= 93% =================>    ] 146000/157667    7s /     0s[======================= 94% ==================>   ] 148000/157667    7s /     0s[======================= 95% ===================>  ] 150000/157667    8s /     0s[======================= 96% ===================>  ] 152000/157667    8s /     0s[======================= 98% ====================> ] 154000/157667    8s /     0s[==================================================] 156000/157667[==================================================] 157667/157667 
+--------------------------------------------------
+open  HDF5 file demErr.h5 in a mode
+writing dataset /dem                       block: [0, 450, 0, 600]
+close HDF5 file demErr.h5.
+--------------------------------------------------
+open  HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5 in a mode
+writing dataset /timeseries                block: [0, 98, 0, 450, 0, 600]
+close HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5.
+--------------------------------------------------
+open  HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseriesResidual.h5 in a mode
+writing dataset /timeseries                block: [0, 98, 0, 450, 0, 600]
+close HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseriesResidual.h5.
+roll back to the original settings of ['OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS']
+remove env variable OMP_NUM_THREADS
+remove env variable OPENBLAS_NUM_THREADS
+remove env variable MKL_NUM_THREADS
+remove env variable NUMEXPR_NUM_THREADS
+remove env variable VECLIB_MAXIMUM_THREADS
+time used: 00 mins 13.0 secs.
+Go back to directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+
+################################################
+   Normal end of smallbaselineApp processing!
+################################################
+Time used: 00 mins 14.9 secs
+

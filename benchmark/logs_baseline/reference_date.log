@@ -1,0 +1,63 @@
+MintPy version 1.6.3, date 2025-11-24
+--RUN-at-2026-04-26 10:31:58.008082--
+Current directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+Run routine processing with smallbaselineApp.py on steps: ['reference_date']
+Remaining steps: ['velocity', 'geocode', 'google_earth', 'hdfeos5']
+--------------------------------------------------
+Project name: FernandinaSenDT128
+Go to work directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+read custom template file: /mnt/nas/Projects/third-party-projects/MintPy/docs/templates/FernandinaSenDT128.txt
+update default template based on input custom template
+No new option value found, skip updating /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+read default template file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+
+
+******************** step - reference_date ********************
+
+reference_date.py -t /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries.h5 /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5.h5 /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp.h5 /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5
+read reference date from file: reference_date.txt
+input reference date: 20180619
+--------------------------------------------------
+change reference date for file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries.h5
+reading data ...
+referencing in time ...
+--------------------------------------------------
+open  HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries.h5 in r+ mode
+writing dataset /timeseries                block: (0, 98, 0, 450, 0, 600)
+close HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries.h5.
+update "REF_DATE" attribute value to 20180619
+--------------------------------------------------
+change reference date for file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5.h5
+reading data ...
+referencing in time ...
+--------------------------------------------------
+open  HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5.h5 in r+ mode
+writing dataset /timeseries                block: (0, 98, 0, 450, 0, 600)
+close HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5.h5.
+update "REF_DATE" attribute value to 20180619
+--------------------------------------------------
+change reference date for file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp.h5
+reading data ...
+referencing in time ...
+--------------------------------------------------
+open  HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp.h5 in r+ mode
+writing dataset /timeseries                block: (0, 98, 0, 450, 0, 600)
+close HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp.h5.
+update "REF_DATE" attribute value to 20180619
+--------------------------------------------------
+change reference date for file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5
+reading data ...
+referencing in time ...
+--------------------------------------------------
+open  HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5 in r+ mode
+writing dataset /timeseries                block: (0, 98, 0, 450, 0, 600)
+close HDF5 file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/timeseries_ERA5_ramp_demErr.h5.
+update "REF_DATE" attribute value to 20180619
+time used: 00 mins 17.2 secs.
+Go back to directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+
+################################################
+   Normal end of smallbaselineApp processing!
+################################################
+Time used: 00 mins 17.7 secs
+

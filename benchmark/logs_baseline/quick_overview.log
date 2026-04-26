@@ -1,0 +1,55 @@
+MintPy version 1.6.3, date 2025-11-24
+--RUN-at-2026-04-26 10:22:29.320334--
+Current directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+Run routine processing with smallbaselineApp.py on steps: ['quick_overview']
+Remaining steps: ['correct_unwrap_error', 'invert_network', 'correct_LOD', 'correct_SET', 'correct_ionosphere', 'correct_troposphere', 'deramp', 'correct_topography', 'residual_RMS', 'reference_date', 'velocity', 'geocode', 'google_earth', 'hdfeos5']
+--------------------------------------------------
+Project name: FernandinaSenDT128
+Go to work directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+read custom template file: /mnt/nas/Projects/third-party-projects/MintPy/docs/templates/FernandinaSenDT128.txt
+update default template based on input custom template
+No new option value found, skip updating /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+read default template file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/smallbaselineApp.cfg
+
+
+******************** step - quick_overview ********************
+
+temporal_average.py /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/inputs/ifgramStack.h5 --dataset unwrapPhase -o /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/avgPhaseVelocity.h5 --update
+--------------------------------------------------
+update mode: ON
+1) output file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/avgPhaseVelocity.h5 NOT exist.
+run or skip: run.
+calculate the temporal average of unwrapPhase in file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/inputs/ifgramStack.h5 ...
+[==================================================] lines 450/450 
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/avgPhaseVelocity.h5 with w mode
+create dataset /velocity of float32    in size of (450, 600)           with compression=None
+finished writing to /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/avgPhaseVelocity.h5
+time used: 00 mins 4.0 secs
+
+
+unwrap_error_phase_closure.py /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/inputs/ifgramStack.h5 --water-mask /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/waterMask.h5 --action calculate --update
+open ifgramStack file: ifgramStack.h5
+number of interferograms: 288
+number of triplets: 286
+used dataset name: unwrapPhase
+calculating the number of triplets with non-zero integer ambiguity of closure phase ...
+    block by block with size up to (450, 600), 1 blocks in total
+reference pixel in y/x: (76, 156) from dataset: unwrapPhase
+[==================================================] line 0 / 450 
+mask out pixels with zero in file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/waterMask.h5
+mask out pixels with zero in file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/avgSpatialCoh.h5
+mask out invalid pixels (values == num of triplets)
+write to file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/numTriNonzeroIntAmbiguity.h5
+create HDF5 file: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/numTriNonzeroIntAmbiguity.h5 with w mode
+create dataset /mask of float32    in size of (450, 600)           with compression=None
+finished writing to /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/numTriNonzeroIntAmbiguity.h5
+plot and save figure to file /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy/numTriNonzeroIntAmbiguity.png
+time used: 00 mins 8.3 secs
+Done.
+Go back to directory: /mnt/nas/Projects/third-party-projects/MintPy/FernandinaSenDT128/mintpy
+
+################################################
+   Normal end of smallbaselineApp processing!
+################################################
+Time used: 00 mins 25.1 secs
+
