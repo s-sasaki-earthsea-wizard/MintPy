@@ -86,6 +86,13 @@ def create_parser(subparsers=None):
     solver.add_argument('--min-norm-phase', dest='minNormVelocity', action='store_false',
                         help=('Enable inversion with minimum-norm deformation phase,'
                               ' instead of the default minimum-norm deformation velocity.'))
+    solver.add_argument('--backend', dest='backend', default='cpu',
+                        choices={'cpu', 'torch'},
+                        help='lstsq backend: cpu (scipy, default) or torch '
+                             '(GPU-batched via torch.linalg.lstsq).')
+    solver.add_argument('--gpu-chunk-size', dest='gpuChunkSize', type=int, default=0,
+                        help='pixels per GPU chunk for --backend=torch '
+                             '(0=auto-size from free VRAM; default).')
     #solver.add_argument('--norm', dest='residualNorm', default='L2', choices=['L1', 'L2'],
     #                    help='Optimization method, L1 or L2 norm. (default: %(default)s).')
 
@@ -234,8 +241,10 @@ def read_template2inps(template_file, inps):
         elif value:
             if key in ['maskThreshold', 'minRedundancy']:
                 iDict[key] = float(value)
-            elif key in ['residualNorm', 'waterMaskFile']:
+            elif key in ['residualNorm', 'waterMaskFile', 'backend']:
                 iDict[key] = value
+            elif key in ['gpuChunkSize']:
+                iDict[key] = int(value)
 
     # computing configurations
     dask_key_prefix = 'mintpy.compute.'
