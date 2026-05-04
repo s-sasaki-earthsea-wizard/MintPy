@@ -19,7 +19,7 @@ never propagate.
 
 Per-pixel NaN observations are masked by zeroing the corresponding row
 weights, which is mathematically equivalent to dropping them from the WLS
-system. The CPU code path is unchanged when ``backend='cpu'`` and remains
+system. The CPU code path is unchanged when ``solver='cpu'`` and remains
 the numerical reference.
 """
 
@@ -33,7 +33,7 @@ except ImportError:
     HAS_TORCH = False
 
 
-SUPPORTED_BACKENDS = ('cpu', 'torch')
+SUPPORTED_SOLVERS = ('cpu', 'torch')
 
 # default chunk size when caller does not provide one and VRAM probing fails
 DEFAULT_CHUNK_SIZE = 20000
@@ -42,26 +42,26 @@ DEFAULT_CHUNK_SIZE = 20000
 VRAM_SAFETY = 0.4
 
 
-def is_backend_available(backend):
-    """Return True if the named GPU backend is importable and usable."""
-    if backend == 'cpu':
+def is_solver_available(solver):
+    """Return True if the named WLS solver is importable and usable."""
+    if solver == 'cpu':
         return True
-    if backend == 'torch':
+    if solver == 'torch':
         return HAS_TORCH and torch.cuda.is_available()
     return False
 
 
-def _get_torch_device(backend):
+def _get_torch_device(solver):
     if not HAS_TORCH:
         raise ImportError(
-            f"backend='{backend}' requires PyTorch. "
+            f"solver='{solver}' requires PyTorch. "
             "Install with `pip install -e \".[gpu]\" "
             "--extra-index-url https://download.pytorch.org/whl/cu128 "
             "--index-strategy unsafe-best-match`."
         )
     if not torch.cuda.is_available():
         raise RuntimeError(
-            f"backend='{backend}' requires CUDA, but torch.cuda.is_available() is False."
+            f"solver='{solver}' requires CUDA, but torch.cuda.is_available() is False."
         )
     return torch.device('cuda')
 
@@ -136,7 +136,7 @@ def estimate_timeseries_batch(
     min_redundancy=1.0,
     inv_quality_name='temporalCoherence',
     chunk_size=None,
-    backend='torch',
+    solver='torch',
     print_msg=True,
 ):
     """Batch GPU least-squares solver for the SBAS network inversion.
@@ -170,7 +170,7 @@ def estimate_timeseries_batch(
                           this, return zeros for all pixels.
         inv_quality_name: str. 'temporalCoherence' | 'residual' | 'no'.
         chunk_size:       int or None. Pixels per GPU chunk. None => auto.
-        backend:          str. 'torch' (only one implemented).
+        solver:           str. 'torch' (only one implemented).
         print_msg:        bool.
 
     Returns:
@@ -178,11 +178,11 @@ def estimate_timeseries_batch(
         inv_quality:      np.ndarray (num_pixel,) float32.
         num_inv_obs:      np.ndarray (num_pixel,) int16.
     """
-    if backend != 'torch':
+    if solver != 'torch':
         raise ValueError(
-            f"unsupported backend={backend!r}; choose from {SUPPORTED_BACKENDS}"
+            f"unsupported solver={solver!r}; choose from {SUPPORTED_SOLVERS}"
         )
-    device = _get_torch_device(backend)
+    device = _get_torch_device(solver)
 
     G = B if min_norm_velocity else A
     num_pair, num_unknown = G.shape
@@ -212,7 +212,7 @@ def estimate_timeseries_batch(
     num_chunk = (num_pixel + chunk_size - 1) // chunk_size
     if print_msg:
         mode = 'WLS' if weight_sqrt is not None else 'OLS'
-        print(f'estimating time-series via {backend} batched {mode} '
+        print(f'estimating time-series via {solver} batched {mode} '
               f'in {num_chunk} chunk(s) of up to {chunk_size} pixels ...')
 
     # move design matrix and tbase to GPU once (re-used across chunks)
