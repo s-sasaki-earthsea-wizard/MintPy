@@ -11,18 +11,16 @@
 
 This module provides ``estimate_timeseries_batch``, an opt-in replacement for
 the per-pixel CPU loop in ``run_ifgram_inversion_patch``. Pixels are solved
-in batches on CUDA via one of two solvers (selected by the module-private
-``_SOLVER`` constant):
-
-* ``cholesky`` (default): normal equations + cuSolver-batched Cholesky.
-  Collapses the per-pixel Householder iterations of the QR path into ~5
-  kernel launches per chunk. Rank-deficient pixels are detected and zeroed.
-* ``lstsq``: cuSolver gels (QR), retained for rollback / numerical
-  comparison. Assumes full rank; rank-deficient pixels propagate NaN/Inf.
+in batches on CUDA via the normal equations + cuSolver-batched Cholesky:
+this collapses the per-pixel Householder iterations of a QR path into ~5
+kernel launches per chunk on the FernandinaSenDT128 fixture. Rank-deficient
+pixels are detected via ``cholesky_ex`` info codes and zeroed so NaN/Inf
+never propagate.
 
 Per-pixel NaN observations are masked by zeroing the corresponding row
 weights, which is mathematically equivalent to dropping them from the WLS
-system. The CPU code path is unchanged when ``backend='cpu'``.
+system. The CPU code path is unchanged when ``backend='cpu'`` and remains
+the numerical reference.
 """
 
 
@@ -42,12 +40,6 @@ DEFAULT_CHUNK_SIZE = 20000
 
 # safety factor applied to free VRAM when auto-sizing the chunk
 VRAM_SAFETY = 0.4
-
-# Per-chunk solver for the torch backend. 'cholesky' uses normal equations
-# + batched Cholesky (cuSolver-batched), which collapses the per-pixel
-# Householder iterations of 'lstsq' into ~5 kernel launches per chunk.
-# 'lstsq' (cuSolver gels, QR) is retained for rollback / numerical comparison.
-_SOLVER = 'cholesky'
 
 
 def is_backend_available(backend):
@@ -78,10 +70,10 @@ def _auto_chunk_size(num_pair, num_unknown, dtype_bytes=4):
     """Pick chunk size from free VRAM.
 
     The dominant per-pixel allocations during one chunk are:
-        A_batch (n, num_pair, num_unknown)   ~ num_pair * num_unknown * dtype_bytes
-        gels workspace                        ~ similar order
+        Gw (n, num_pair, num_unknown)         ~ num_pair * num_unknown * dtype_bytes
+        N, L (n, num_unknown, num_unknown)    ~ 1/num_pair of the above
         residual / temp                       ~ num_pair * dtype_bytes
-    Empirically, ~3x of A_batch covers the rest. Use VRAM_SAFETY as the
+    Empirically, ~3x of Gw covers the rest. Use VRAM_SAFETY as the
     headroom factor.
     """
     if not (HAS_TORCH and torch.cuda.is_available()):
@@ -92,33 +84,16 @@ def _auto_chunk_size(num_pair, num_unknown, dtype_bytes=4):
     return max(1, n)
 
 
-def _solve_lstsq(G_dev, w_dev, y_dev):
-    """Per-pixel weighted least-squares via batched cuSolver gels (QR).
-
-    Args:
-        G_dev: (num_pair, num_unknown) design matrix on GPU.
-        w_dev: (num_pair, n) per-pixel sqrt-weights with NaN rows zeroed.
-        y_dev: (num_pair, n) observations with NaN rows zeroed.
-
-    Returns:
-        (n, num_unknown) per-pixel solution.
-    """
-    A_batch = w_dev.t().unsqueeze(-1) * G_dev.unsqueeze(0)
-    b_batch = (w_dev * y_dev).t().unsqueeze(-1)
-    sol = torch.linalg.lstsq(A_batch, b_batch)
-    return sol.solution.squeeze(-1)
-
-
 def _solve_cholesky(G_dev, w_dev, y_dev):
     """Per-pixel weighted least-squares via normal equations + batched Cholesky.
 
     For each pixel k with weighted system Gw_k @ x_k = yw_k where
     Gw_k = diag(w_k) @ G and yw_k = w_k * y_k, solve the normal equations
         (Gw_k^T @ Gw_k) x_k = Gw_k^T @ yw_k
-    via cuSolver-batched Cholesky. Compared to the gels (QR) path this
+    via cuSolver-batched Cholesky. Compared to a gels (QR) path this
     collapses ~num_unknown Householder iterations per pixel into a single
-    batched factorization, reducing per-chunk kernel launches from ~1.88M
-    to ~5 (see profile report_profile.md @ cea7573).
+    batched factorization, reducing per-chunk kernel launches from
+    ~num_pixel * num_unknown to ~5.
 
     Rank-deficient pixels are detected via cholesky_ex info codes; their
     factor is replaced with identity and right-hand-side with zeros so the
@@ -187,8 +162,9 @@ def estimate_timeseries_batch(
                           root of per-(ifgram, pixel) weight (WLS), or None
                           for OLS.
         min_norm_velocity: bool. Solve for velocity (True) or phase (False).
-        rcond:            float. Currently unused on CUDA (``driver='gels'``
-                          ignores it). Kept for API parity with CPU path.
+        rcond:            float. Unused on CUDA: the Cholesky solver does
+                          not consume an rcond cutoff. Kept for API parity
+                          with the CPU path.
         min_redundancy:   float. Network-level redundancy check; if the design
                           matrix has any column with fewer non-zeros than
                           this, return zeros for all pixels.
@@ -267,13 +243,8 @@ def estimate_timeseries_batch(
         w_dev = torch.as_tensor(w_chunk, device=device)         # (num_pair, n)
         valid_dev = torch.as_tensor(~nan_mask, device=device)   # (num_pair, n)
 
-        # solve per-pixel WLS via the configured solver
-        if _SOLVER == 'cholesky':
-            X_batch = _solve_cholesky(G_dev, w_dev, y_dev)      # (n, num_unknown)
-        elif _SOLVER == 'lstsq':
-            X_batch = _solve_lstsq(G_dev, w_dev, y_dev)         # (n, num_unknown)
-        else:
-            raise ValueError(f'unsupported _SOLVER={_SOLVER!r}')
+        # solve per-pixel WLS via batched Cholesky on the normal equations
+        X_batch = _solve_cholesky(G_dev, w_dev, y_dev)          # (n, num_unknown)
 
         # inversion-quality: |sum_i exp(j * e_i)| / N (phase coherence)
         # N is the per-pixel count of valid (non-NaN) ifgrams, matching the
