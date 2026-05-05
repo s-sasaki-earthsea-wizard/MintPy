@@ -247,6 +247,8 @@ mintpy.networkInversion.solver = torch
 ifgram_inversion.py inputs/ifgramStack.h5 --solver torch
 ```
 
+<p>See <a href="./gpu.md">gpu.md</a> for tuning, behavior notes, and benchmarks.</p>
+
 </details>
 </p>
 
