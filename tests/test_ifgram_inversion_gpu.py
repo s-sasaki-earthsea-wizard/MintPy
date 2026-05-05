@@ -145,7 +145,7 @@ def test_wls_no_nan(network):
     gpu = estimate_timeseries_batch(
         A=A, B=B, y=y, tbase_diff=tbase_diff, weight_sqrt=w,
         min_norm_velocity=True,
-        chunk_size=64, backend='torch', print_msg=False,
+        chunk_size=64, solver='torch', print_msg=False,
     )
     assert_equivalent(cpu, gpu, ts_rel_tol=1e-5, tcoh_abs_tol=1e-5)
 
@@ -167,7 +167,7 @@ def test_wls_with_nan_redundant(network):
     gpu = estimate_timeseries_batch(
         A=A, B=B, y=y, tbase_diff=tbase_diff, weight_sqrt=w,
         min_norm_velocity=True,
-        chunk_size=32, backend='torch', print_msg=False,
+        chunk_size=32, solver='torch', print_msg=False,
     )
     assert_equivalent(cpu, gpu, ts_rel_tol=1e-4, tcoh_abs_tol=1e-4)
 
@@ -182,7 +182,7 @@ def test_ols_no_nan(network):
     gpu = estimate_timeseries_batch(
         A=A, B=B, y=y, tbase_diff=tbase_diff, weight_sqrt=None,
         min_norm_velocity=True,
-        chunk_size=32, backend='torch', print_msg=False,
+        chunk_size=32, solver='torch', print_msg=False,
     )
     assert_equivalent(cpu, gpu, ts_rel_tol=1e-5, tcoh_abs_tol=1e-5)
 
@@ -196,7 +196,7 @@ def test_min_norm_phase(network):
     gpu = estimate_timeseries_batch(
         A=A, B=B, y=y, tbase_diff=tbase_diff, weight_sqrt=w,
         min_norm_velocity=False,
-        chunk_size=32, backend='torch', print_msg=False,
+        chunk_size=32, solver='torch', print_msg=False,
     )
     assert_equivalent(cpu, gpu, ts_rel_tol=1e-5, tcoh_abs_tol=1e-5)
 
@@ -208,7 +208,7 @@ def test_chunk_size_invariance(network):
     y, w = synthesize_observations(A, B, num_pixel=64, nan_frac=0.03, seed=5)
     assert _all_pixels_full_rank(A, y)
     common = dict(A=A, B=B, y=y, tbase_diff=tbase_diff, weight_sqrt=w,
-                  min_norm_velocity=True, backend='torch', print_msg=False)
+                  min_norm_velocity=True, solver='torch', print_msg=False)
     ts_a, tcoh_a, nobs_a = estimate_timeseries_batch(chunk_size=16, **common)
     ts_b, tcoh_b, nobs_b = estimate_timeseries_batch(chunk_size=64, **common)
     np.testing.assert_allclose(ts_a, ts_b, rtol=1e-6, atol=1e-6)
@@ -217,11 +217,11 @@ def test_chunk_size_invariance(network):
 
 
 @requires_cuda
-def test_unsupported_backend_raises(network):
+def test_unsupported_solver_raises(network):
     A, B, tbase_diff = network
     y, w = synthesize_observations(A, B, num_pixel=8, seed=6)
-    with pytest.raises(ValueError, match='unsupported backend'):
+    with pytest.raises(ValueError, match='unsupported solver'):
         estimate_timeseries_batch(
             A=A, B=B, y=y, tbase_diff=tbase_diff, weight_sqrt=w,
-            backend='cupy', print_msg=False,
+            solver='cupy', print_msg=False,
         )
