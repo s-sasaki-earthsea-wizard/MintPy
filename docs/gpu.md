@@ -63,7 +63,7 @@ The two outputs should agree to float32 round-off (RMS on the order of 1e-5).
 
 Benchmarks on FernandinaSenDT128 (RTX 5080, Blackwell sm_120, CUDA 12.8, PyTorch 2.11) are tracked in the sibling [`mintpy-benchmark`](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark) repository:
 
-+ [report_torch.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/report_torch.md) — `cpu` vs `torch` end-to-end on the tutorial dataset
-+ [report_solver_comparison.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/report_solver_comparison.md) — lstsq vs Cholesky, numerical equivalence (RMS ~1e-5) and per-step speedup
-+ [report_chunk_sweep.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/report_chunk_sweep.md) — chunk-size sensitivity
-+ [report_profile.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/report_profile.md) — `torch.profiler` GPU kernel breakdown
++ [report_torch.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/reports/report_torch.md) — `cpu` vs `torch` end-to-end on the tutorial dataset
++ [report_solver_comparison.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/reports/report_solver_comparison.md) — lstsq vs Cholesky, numerical equivalence (RMS ~1e-5) and per-step speedup
++ [report_chunk_sweep.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/reports/report_chunk_sweep.md) — chunk-size sensitivity
++ [report_profile.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/reports/report_profile.md) — `torch.profiler` GPU kernel breakdown
