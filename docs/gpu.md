@@ -61,9 +61,15 @@ The two outputs should agree to float32 round-off (RMS on the order of 1e-5).
 
 ## 4. Performance ##
 
-Benchmarks on FernandinaSenDT128 (RTX 5080, Blackwell sm_120, CUDA 12.8, PyTorch 2.11) are tracked in the sibling [`mintpy-benchmark`](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark) repository:
+Benchmarks on RTX 5080 (Blackwell sm_120, CUDA 12.8, PyTorch 2.11) are tracked in the sibling [`mintpy-benchmark`](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark) repository.
 
-+ [report_torch.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/reports/report_torch.md) — `cpu` vs `torch` end-to-end on the tutorial dataset
+Tutorial-scale on FernandinaSenDT128 (270k pixels, 288 ifgs):
+
++ [report_torch.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/reports/report_torch.md) — `cpu` vs `torch` end-to-end
 + [report_solver_comparison.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/reports/report_solver_comparison.md) — lstsq vs Cholesky, numerical equivalence (RMS ~1e-5) and per-step speedup
 + [report_chunk_sweep.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/reports/report_chunk_sweep.md) — chunk-size sensitivity
 + [report_profile.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/reports/report_profile.md) — `torch.profiler` GPU kernel breakdown
+
+Large-scene on GalapagosSenDT128 (3.4M pixels, 475 kept ifgs; ~12.6× pixels and 1.65× ifgs vs Fernandina):
+
++ [report_large_scene.md](https://github.com/s-sasaki-earthsea-wizard/mintpy-benchmark/blob/main/reports/report_large_scene.md) — `solver=torch` reaches **36.4× step wall** / **44.4× internal** speedup on `invert_network` (cpu 6189 s → torch 170 s on RTX 5080 / SSD), confirming the speedup grows at scale; output equivalence preserved at float32 round-off (abs RMS max ~16 µm)
