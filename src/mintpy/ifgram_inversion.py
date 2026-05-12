@@ -816,7 +816,7 @@ def run_ifgram_inversion_patch(ifgram_file, box=None, ref_phase=None, obs_ds_nam
     # for the full-rank case. Rank-deficient pixels (rare on real SBAS networks)
     # are not handled here; if encountered, NaN/Inf will propagate downstream.
     if solver != 'cpu':
-        from mintpy.ifgram_inversion_gpu import estimate_timeseries_batch
+        from mintpy.gpu.ifgram_inversion import estimate_timeseries_batch
         print(f'estimating time-series via {solver} solver (batched, GPU)')
         ts_sub, q_sub, n_sub = estimate_timeseries_batch(
             A=A, B=B,
