@@ -34,104 +34,17 @@ no``).
 
 import numpy as np
 
-try:
+from mintpy.gpu._common import (
+    HAS_TORCH,
+    SUPPORTED_SOLVERS,
+    auto_chunk_size,
+    get_torch_device,
+    is_solver_available,
+    solve_normal_equations_batched,
+)
+
+if HAS_TORCH:
     import torch
-    HAS_TORCH = True
-except ImportError:
-    HAS_TORCH = False
-
-
-SUPPORTED_SOLVERS = ('cpu', 'torch')
-
-# default chunk size when caller does not provide one and VRAM probing fails
-DEFAULT_CHUNK_SIZE = 20000
-
-# safety factor applied to free VRAM when auto-sizing the chunk
-VRAM_SAFETY = 0.4
-
-
-def is_solver_available(solver):
-    """Return True if the named DEM-error solver is importable and usable."""
-    if solver == 'cpu':
-        return True
-    if solver == 'torch':
-        return HAS_TORCH and torch.cuda.is_available()
-    return False
-
-
-def _get_torch_device(solver):
-    if not HAS_TORCH:
-        raise ImportError(
-            f"solver='{solver}' requires PyTorch. "
-            "Install with `pip install -e \".[gpu]\" "
-            "--extra-index-url https://download.pytorch.org/whl/cu128 "
-            "--index-strategy unsafe-best-match`."
-        )
-    if not torch.cuda.is_available():
-        raise RuntimeError(
-            f"solver='{solver}' requires CUDA, but torch.cuda.is_available() is False."
-        )
-    return torch.device('cuda')
-
-
-def _auto_chunk_size(num_date, num_param, dtype_bytes=4):
-    """Pick chunk size from free VRAM.
-
-    The dominant per-pixel allocations during one chunk are the batched
-    design matrix ``G0_batch`` of shape ``(n, num_date, num_param)`` plus
-    a date-flag-filtered view, the normal matrix ``N`` of shape ``(n,
-    num_param, num_param)`` and its Cholesky factor ``L``, and a couple
-    of ``(n, num_date)`` residual/prediction tensors. ``G0_batch``
-    dominates; ~3x of its size empirically covers the rest. Use
-    ``VRAM_SAFETY`` as the headroom factor.
-    """
-    if not (HAS_TORCH and torch.cuda.is_available()):
-        return DEFAULT_CHUNK_SIZE
-    free_b, _ = torch.cuda.mem_get_info()
-    per_pixel_bytes = 3 * num_date * num_param * dtype_bytes
-    n = int(VRAM_SAFETY * free_b / max(per_pixel_bytes, 1))
-    return max(1, n)
-
-
-def _solve_cholesky_batched(G_batch, y_batch, print_msg=True):
-    """Per-pixel least-squares via normal equations + batched Cholesky.
-
-    For each pixel k with system ``G_k @ x_k = y_k`` (shape
-    ``(num_date_used, num_param)`` and ``(num_date_used,)``), solve the
-    normal equations
-        ``(G_k^T @ G_k) x_k = G_k^T @ y_k``
-    via cuSolver-batched Cholesky.
-
-    Rank-deficient pixels are detected via ``cholesky_ex`` info codes;
-    their factor is replaced with identity and right-hand-side with
-    zeros so the downstream ``cholesky_solve`` produces an all-zero
-    solution for those pixels and never propagates NaN/Inf.
-
-    Args:
-        G_batch: (n, num_date_used, num_param) per-pixel design matrix.
-        y_batch: (n, num_date_used) per-pixel observation vector.
-        print_msg: bool. Warn on rank-deficient pixels.
-
-    Returns:
-        (n, num_param) per-pixel solution.
-    """
-    G_T = G_batch.transpose(-1, -2)
-    N = G_T @ G_batch
-    r = G_T @ y_batch.unsqueeze(-1)
-
-    L, info = torch.linalg.cholesky_ex(N)
-    fail_mask = info != 0
-    if fail_mask.any():
-        n_fail = int(fail_mask.sum().item())
-        if print_msg:
-            print(f'WARNING: {n_fail} rank-deficient pixel(s) in chunk; '
-                  'setting solution to zero')
-        eye = torch.eye(N.shape[-1], device=L.device, dtype=L.dtype)
-        L = torch.where(fail_mask.view(-1, 1, 1), eye, L)
-        r = torch.where(fail_mask.view(-1, 1, 1), torch.zeros_like(r), r)
-
-    X = torch.cholesky_solve(r, L)
-    return X.squeeze(-1)
 
 
 def estimate_dem_error_pixelwise_batch(
@@ -199,7 +112,7 @@ def estimate_dem_error_pixelwise_batch(
             "phase_velocity=True is not yet supported on the torch solver; "
             "fall back to solver='cpu'"
         )
-    device = _get_torch_device(solver)
+    device = get_torch_device(solver)
 
     ts_valid = np.asarray(ts_valid, dtype=np.float32)
     if ts_valid.ndim != 2:
@@ -255,7 +168,7 @@ def estimate_dem_error_pixelwise_batch(
         return delta_z, ts_cor, ts_res
 
     if chunk_size is None or chunk_size <= 0:
-        chunk_size = _auto_chunk_size(num_date, num_param)
+        chunk_size = auto_chunk_size(num_date, num_param)
         if print_msg:
             free_gib = torch.cuda.mem_get_info()[0] / 2**30
             print(f'GPU auto chunk_size = {chunk_size} pixels '
@@ -302,7 +215,7 @@ def estimate_dem_error_pixelwise_batch(
         G_fit = G0_batch[:, date_flag_dev, :]                            # (n, D', P)
         y_fit = ts_chunk_dev[:, date_flag_dev]                           # (n, D')
 
-        X = _solve_cholesky_batched(G_fit, y_fit, print_msg=print_msg)   # (n, P)
+        X = solve_normal_equations_batched(G_fit, y_fit, print_msg=print_msg)  # (n, P)
 
         delta_z_chunk = X[:, 0]                                          # (n,)
         G0_col0 = G0_batch[:, :, 0]                                      # (n, D)
