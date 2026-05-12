@@ -1,4 +1,4 @@
-"""Numerical-equivalence tests for src/mintpy/ifgram_inversion_gpu.py.
+"""Numerical-equivalence tests for src/mintpy/gpu/ifgram_inversion.py.
 
 Compare the GPU-batched solver against the per-pixel CPU reference
 (scipy.linalg.lstsq via mintpy.ifgram_inversion.estimate_timeseries) on
@@ -11,12 +11,12 @@ import pytest
 
 torch = pytest.importorskip("torch")
 
+from mintpy.gpu.ifgram_inversion import estimate_timeseries_batch
 from mintpy.ifgram_inversion import estimate_timeseries
-from mintpy.ifgram_inversion_gpu import estimate_timeseries_batch
 
 requires_cuda = pytest.mark.skipif(
     not torch.cuda.is_available(),
-    reason="CUDA-capable GPU required for ifgram_inversion_gpu tests",
+    reason="CUDA-capable GPU required for mintpy.gpu.ifgram_inversion tests",
 )
 
 

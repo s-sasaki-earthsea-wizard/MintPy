@@ -4,7 +4,7 @@
 # GPU-accelerated network inversion                        #
 ############################################################
 # Recommend import:
-#     from mintpy import ifgram_inversion_gpu as ifginv_gpu
+#     from mintpy.gpu import ifgram_inversion as gpu_ifginv
 
 
 """GPU-batched solver for the SBAS network inversion.
