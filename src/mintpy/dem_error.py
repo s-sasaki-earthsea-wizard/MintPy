@@ -281,7 +281,8 @@ def estimate_dem_error(ts0, G0, tbase, date_flag=None, phase_velocity=False,
 
 
 def correct_dem_error_patch(G_defo, ts_file, geom_file=None, box=None,
-                            date_flag=None, phase_velocity=False):
+                            date_flag=None, phase_velocity=False,
+                            solver='cpu', chunk_size=None):
     """
     Correct one path of a time-series for DEM error.
 
@@ -291,6 +292,13 @@ def correct_dem_error_patch(G_defo, ts_file, geom_file=None, box=None,
                 box            - tuple of 4 int in (x0, y0, x1, y1) for the area of interest
                 date_flag      - 1D np.ndarray in bool in size of (num_date), dates used for the estimation
                 phase_velocity - bool, minimize the resdiual phase or phase velocity
+                solver         - str, 'cpu' (default, scipy.linalg.lstsq per pixel) or
+                                 'torch' (batched Cholesky on CUDA via mintpy.gpu.dem_error).
+                                 Only affects the pixelwise-geometry branch; the
+                                 mean-geometry branch is already pixel-batched on CPU.
+                chunk_size     - int or None. Pixels per GPU chunk for solver='torch'.
+                                 None / <=0 selects auto-sizing from free VRAM.
+                                 Ignored for solver='cpu'.
     Returns:    delta_z        - 2D np.ndarray in size of (num_row, num_col)
                 ts_cor         - 3D np.ndarray in size of (num_date, num_row, num_col)
                 ts_res         - 3D np.ndarray in size of (num_date, num_row, num_col)
@@ -385,6 +393,40 @@ def correct_dem_error_patch(G_defo, ts_file, geom_file=None, box=None,
         delta_z[mask] = delta_z_i
         ts_cor[:, mask] = ts_cor_i
         ts_res[:, mask] = ts_res_i
+
+    elif solver != 'cpu':
+        print(f'estimating DEM error pixel-wisely via solver={solver!r} ...')
+        from mintpy.gpu.dem_error import (
+            estimate_dem_error_pixelwise_batch,
+            is_solver_available,
+        )
+        if not is_solver_available(solver):
+            raise RuntimeError(
+                f"solver={solver!r} requested but not available "
+                "(missing torch / CUDA)"
+            )
+
+        ts_valid = ts_data[:, mask]
+        if pbase.shape[1] == 1:
+            pbase_valid = pbase
+        else:
+            pbase_valid = pbase[:, mask]
+
+        delta_z_valid, ts_cor_valid, ts_res_valid = estimate_dem_error_pixelwise_batch(
+            ts_valid=ts_valid,
+            pbase_valid=pbase_valid,
+            range_dist_valid=range_dist[mask],
+            sin_inc_angle_valid=sin_inc_angle[mask],
+            G_defo=G_defo,
+            tbase=tbase,
+            date_flag=date_flag,
+            phase_velocity=phase_velocity,
+            solver=solver,
+            chunk_size=chunk_size,
+        )
+        delta_z[mask] = delta_z_valid
+        ts_cor[:, mask] = ts_cor_valid
+        ts_res[:, mask] = ts_res_valid
 
     else:
         print('estimating DEM error pixel-wisely ...')
@@ -499,12 +541,17 @@ def correct_dem_error(inps):
     )
 
     # 3.2 prepare the input arguments for *_patch()
+    # chunk_size <=0 means "auto from free VRAM" inside the GPU dispatch;
+    # the patch function passes it through to mintpy.gpu.dem_error.
+    chunk_size = getattr(inps, 'gpuChunkSize', 0) or 0
     data_kwargs = {
         'G_defo'         : G_defo,
         'ts_file'        : inps.ts_file,
         'geom_file'      : inps.geom_file,
         'date_flag'      : date_flag,
         'phase_velocity' : inps.phaseVelocity,
+        'solver'         : getattr(inps, 'solver', 'cpu'),
+        'chunk_size'     : chunk_size if chunk_size > 0 else None,
     }
 
     # 3.3 invert / write block-by-block
