@@ -282,7 +282,7 @@ def estimate_dem_error(ts0, G0, tbase, date_flag=None, phase_velocity=False,
 
 def correct_dem_error_patch(G_defo, ts_file, geom_file=None, box=None,
                             date_flag=None, phase_velocity=False,
-                            solver='cpu'):
+                            solver='cpu', chunk_size=None):
     """
     Correct one path of a time-series for DEM error.
 
@@ -296,6 +296,9 @@ def correct_dem_error_patch(G_defo, ts_file, geom_file=None, box=None,
                                  'torch' (batched Cholesky on CUDA via mintpy.gpu.dem_error).
                                  Only affects the pixelwise-geometry branch; the
                                  mean-geometry branch is already pixel-batched on CPU.
+                chunk_size     - int or None. Pixels per GPU chunk for solver='torch'.
+                                 None / <=0 selects auto-sizing from free VRAM.
+                                 Ignored for solver='cpu'.
     Returns:    delta_z        - 2D np.ndarray in size of (num_row, num_col)
                 ts_cor         - 3D np.ndarray in size of (num_date, num_row, num_col)
                 ts_res         - 3D np.ndarray in size of (num_date, num_row, num_col)
@@ -419,6 +422,7 @@ def correct_dem_error_patch(G_defo, ts_file, geom_file=None, box=None,
             date_flag=date_flag,
             phase_velocity=phase_velocity,
             solver=solver,
+            chunk_size=chunk_size,
         )
         delta_z[mask] = delta_z_valid
         ts_cor[:, mask] = ts_cor_valid
@@ -537,12 +541,17 @@ def correct_dem_error(inps):
     )
 
     # 3.2 prepare the input arguments for *_patch()
+    # chunk_size <=0 means "auto from free VRAM" inside the GPU dispatch;
+    # the patch function passes it through to mintpy.gpu.dem_error.
+    chunk_size = getattr(inps, 'gpuChunkSize', 0) or 0
     data_kwargs = {
         'G_defo'         : G_defo,
         'ts_file'        : inps.ts_file,
         'geom_file'      : inps.geom_file,
         'date_flag'      : date_flag,
         'phase_velocity' : inps.phaseVelocity,
+        'solver'         : getattr(inps, 'solver', 'cpu'),
+        'chunk_size'     : chunk_size if chunk_size > 0 else None,
     }
 
     # 3.3 invert / write block-by-block

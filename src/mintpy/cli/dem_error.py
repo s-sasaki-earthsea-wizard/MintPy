@@ -73,6 +73,21 @@ def create_parser(subparsers=None):
                              '1) output time-series file already exists, readable '+
                              'and newer than input interferograms file\n' +
                              '2) all configuration parameters are the same.')
+
+    # solver (pixelwise-geometry branch only; mean-geometry stays CPU)
+    solver = parser.add_argument_group('solver', 'per-pixel solver for the pixelwise-geometry branch')
+    solver.add_argument('--solver', dest='solver', default='cpu',
+                        choices={'cpu', 'torch'},
+                        help='per-pixel solver: cpu (scipy.linalg.lstsq, default) '
+                             'or torch (CUDA-batched normal-equation + Cholesky via '
+                             'PyTorch). torch requires the [gpu] extras and a visible '
+                             'CUDA device; absence is a hard error. Only the '
+                             'pixelwise-geometry branch is affected; the '
+                             'mean-geometry branch is already pixel-batched on CPU.')
+    solver.add_argument('--gpu-chunk-size', dest='gpuChunkSize', type=int, default=0,
+                        help='pixels per GPU chunk for --solver=torch '
+                             '(0=auto-size from free VRAM; default).')
+
     # computing
     parser = arg_utils.add_memory_argument(parser)
     parser = arg_utils.add_parallel_argument(parser)
@@ -145,6 +160,10 @@ def read_template2inps(template_file, inps):
                 iDict[key] = int(value)
             elif key in ['excludeDate','stepDate']:
                 iDict[key] = ptime.yyyymmdd(value.split(','))
+            elif key in ['solver']:
+                iDict[key] = value
+            elif key in ['gpuChunkSize']:
+                iDict[key] = int(value)
 
     # computing configurations
     dask_key_prefix = 'mintpy.compute.'
