@@ -297,7 +297,8 @@ def test_extract_metadata_requires_reference_slant_range(tmp_path):
     gunw = _build_gunw(
         tmp_path / "gunw_bad_slant.h5", slant_range_name="slantRange"
     )
-    with pytest.raises(KeyError):
+    # match on the dataset name so an unrelated KeyError cannot pass this guard
+    with pytest.raises(KeyError, match="referenceSlantRange"):
         prep_nisar.extract_metadata([gunw])
 
 
@@ -313,3 +314,73 @@ def test_extract_metadata_center_line_utc_matches_manual(tmp_path):
     t_mid = t0 + (t1 - t0) / 2.0
     expected = (t_mid - datetime.datetime(2020, 1, 1)).total_seconds()
     assert float(meta["CENTER_LINE_UTC"]) == pytest.approx(expected)
+
+
+def test_extract_metadata_origin_and_bounds_values(tmp_path):
+    """Pin the half-pixel origin correction and common bounds numerically."""
+    gunw = _build_gunw(tmp_path / "gunw_origin.h5")  # default 5x4 grid
+    meta, bounds = prep_nisar.extract_metadata([gunw])
+    # X_FIRST = min(x) - x_step/2 = 400000 - 40; Y_FIRST = max(y) - y_step/2
+    assert float(meta["X_FIRST"]) == pytest.approx(399960.0)
+    assert float(meta["Y_FIRST"]) == pytest.approx(4300040.0)
+    # bounds = (west, south, east, north) at pixel centers
+    assert tuple(pytest.approx(v) for v in bounds) == (
+        pytest.approx(400000.0),
+        pytest.approx(4299760.0),
+        pytest.approx(400320.0),
+        pytest.approx(4300000.0),
+    )
+
+
+# ---------------------------------------------------------------------------
+# frequencyB positive path (not just normalization / missing-B)
+# ---------------------------------------------------------------------------
+def test_resolve_frequency_b_positive(tmp_path):
+    gunw = _build_gunw(
+        tmp_path / "gunw_ab.h5", frequencies=("frequencyA", "frequencyB")
+    )
+    assert prep_nisar._resolve_frequency(gunw, "B", "HH") == "frequencyB"
+    # auto still prefers frequencyA even when B exists
+    assert prep_nisar._resolve_frequency(gunw, "auto", "HH") == "frequencyA"
+
+
+def test_extract_metadata_frequency_b(tmp_path):
+    gunw = _build_gunw(
+        tmp_path / "gunw_ab.h5", frequencies=("frequencyA", "frequencyB")
+    )
+    meta, _ = prep_nisar.extract_metadata([gunw], frequency="frequencyB")
+    assert meta["POLARIZATION"] == "HH"
+    assert int(meta["WIDTH"]) == 5
+    assert float(meta["STARTING_RANGE"]) == pytest.approx(8.0e5)
+
+
+# ---------------------------------------------------------------------------
+# Multi-file common bounds
+# ---------------------------------------------------------------------------
+def test_get_raster_corners(tmp_path):
+    gunw = _build_gunw(tmp_path / "gunw_corners.h5")
+    west, south, east, north = prep_nisar.get_raster_corners(gunw)
+    assert (west, south, east, north) == (
+        pytest.approx(400000.0),
+        pytest.approx(4299760.0),
+        pytest.approx(400320.0),
+        pytest.approx(4300000.0),
+    )
+
+
+def test_common_raster_bound_intersection(tmp_path):
+    # second scene shifted east by two pixels (160 m) -> overlapping range
+    f1 = _build_gunw(tmp_path / "gunw_a.h5", x_start=400000.0)
+    f2 = _build_gunw(tmp_path / "gunw_b.h5", x_start=400160.0)
+    west, south, east, north = prep_nisar.common_raster_bound([f1, f2])
+    assert west == pytest.approx(400160.0)  # max of the two wests
+    assert east == pytest.approx(400320.0)  # min of the two easts
+    assert south == pytest.approx(4299760.0)
+    assert north == pytest.approx(4300000.0)
+
+
+def test_common_raster_bound_no_overlap_raises(tmp_path):
+    f1 = _build_gunw(tmp_path / "gunw_a.h5", x_start=400000.0)
+    f2 = _build_gunw(tmp_path / "gunw_far.h5", x_start=500000.0)
+    with pytest.raises(ValueError, match="No common overlap"):
+        prep_nisar.common_raster_bound([f1, f2])
