@@ -1,0 +1,21 @@
+FAIL raw1_nogeo_up                      up      1s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+PASS raw1_nogeo_P3                      P3     23s last=hdfeos5              tb=0  
+PASS raw2_nogeo_up                      up     25s last=hdfeos5              tb=0  
+PASS raw2_nogeo_P3                      P3     25s last=hdfeos5              tb=0  
+PASS F2_poly2_P3                        P3      2s last=hdfeos5              tb=0  
+PASS F1_gacos_P3                        P3      2s last=hdfeos5              tb=0  
+PASS F2_gacos_up                        up      2s last=hdfeos5              tb=0  
+FAIL syn_plot_first_up                  up      1s last=                     tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL syn_plot_repeat_up                 up      2s last=                     tb=2 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL syn_plot_txt_up                    up      1s last=                     tb=1 plot_network.py:56 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL syn_modnet_up                      up      1s last=                     tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL syn_spatial_up                     up      0s last=                     tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+PASS syn2_plot_up                       up      2s last=                     tb=0  
+PASS syn2_plot_txt_up                   up      2s last=                     tb=0  
+PASS syn_plot_first_P3                  P3      2s last=                     tb=0  
+PASS syn_plot_repeat_P3                 P3      4s last=                     tb=0  
+PASS syn_plot_txt_P3                    P3      2s last=                     tb=0  
+PASS syn_modnet_P3                      P3      1s last=                     tb=0  
+PASS syn_spatial_P3                     P3      0s last=                     tb=0  
+PASS syn2_plot_P3                       P3      2s last=                     tb=0  
+PASS syn2_plot_txt_P3                   P3      2s last=                     tb=0  

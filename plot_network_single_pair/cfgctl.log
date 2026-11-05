@@ -1,0 +1,12 @@
+FAIL F2_minRedundancy2_up               up      7s last=invert_network       tb=1 smallbaselineApp.py:449 RuntimeError: Not enough reliable pixels (minimum of 100). Try the following:
+FAIL F2_minNumPixel_up                  up      7s last=invert_network       tb=1 smallbaselineApp.py:449 RuntimeError: Not enough reliable pixels (minimum of 100000000). Try the following:
+FAIL F2_deramp_mask_no_up               up      2s last=deramp               tb=1 smallbaselineApp.py:720 TypeError: sequence item 4: expected str instance, bool found
+FAIL F2_poly0_up                        up      2s last=velocity             tb=1 utils/time_func.py:244 ValueError: NO time functions specified!
+FAIL F2_tf_excl_to_one_up               up      2s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+FAIL F2_periodic_up                     up      3s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+FAIL F2_step_up                         up      2s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+FAIL F2_exp_up                          up      2s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+FAIL F2_log_up                          up      2s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+FAIL F2_geo_linear_up                   up      3s last=geocode              tb=1 objects/resample.py:740 AttributeError: module 'pyresample' has no attribute 'bilinear'
+FAIL F3_periodic_up                     up      2s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+PASS F3_periodic_P4                     P4      3s last=hdfeos5              tb=0  

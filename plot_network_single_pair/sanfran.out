@@ -1,0 +1,13 @@
+FAIL Sx1_up                             up      1s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL Sx1_P1                             P1      6s last=invert_network       tb=3 ifgram_inversion.py:430 distributed.comm.core.CommClosedError: in <TCP (closed) ConnectionPool.heartbeat_worker local=tcp://127.0.0.1:45480 remote=tcp://127.0.0.1:43713>: Str
+FAIL Sx1_P2                             P2     13s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+PASS Sx1_P3                             P3     17s last=hdfeos5              tb=3  distributed.comm.core.CommClosedError: ConnectionPool closing.
+PASS Sx2_up                             up     19s last=hdfeos5              tb=2  distributed.comm.core.CommClosedError: in <TCP (closed) ConnectionPool.heartbeat_worker local=tcp://127.0.0.1:37066 remote=tcp://127.0.0.1:41893>: Str
+PASS Sx3_up                             up     19s last=hdfeos5              tb=0  
+PASS Sx5_up                             up     19s last=hdfeos5              tb=0  
+PASS Sx2_P3                             P3     17s last=hdfeos5              tb=0  
+PASS Sx3_P3                             P3     18s last=hdfeos5              tb=0  
+FAIL Sx5_keep1_up                       up      9s last=invert_network       tb=5 ifgram_inversion.py:430 distributed.comm.core.CommClosedError: in <TCP (closed) ConnectionPool.heartbeat_worker local=tcp://127.0.0.1:58636 remote=tcp://127.0.0.1:46809>: Str
+FAIL Sx5_keep1_P1                       P1      8s last=invert_network       tb=3 ifgram_inversion.py:430 distributed.comm.core.CommClosedError: in <TCP (closed) ConnectionPool.heartbeat_worker local=tcp://127.0.0.1:46436 remote=tcp://127.0.0.1:33479>: Str
+FAIL Sx5_keep1_P2                       P2     13s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+PASS Sx5_keep1_P3                       P3     18s last=hdfeos5              tb=0  

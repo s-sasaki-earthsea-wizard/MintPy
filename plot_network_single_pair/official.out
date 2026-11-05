@@ -1,0 +1,36 @@
+FAIL F1_up                              up      2s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL F2_up                              up      2s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL F3_up                              up      3s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL F5_up                              up      3s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL F1_P1                              P1      3s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL F1_P2                              P2      3s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL F1_P3                              P3      2s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL F2_P3                              P3      2s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL F3_P3                              P3      2s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL S1_up                              up      1s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL S2_up                              up     12s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+FAIL S3_up                              up     12s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+FAIL S5_up                              up     11s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+FAIL S1_P1                              P1      5s last=invert_network       tb=3 ifgram_inversion.py:430 distributed.comm.core.CommClosedError: in <TCP (closed) ConnectionPool.heartbeat_worker local=tcp://127.0.0.1:44816 remote=tcp://127.0.0.1:40417>: Str
+FAIL S1_P2                              P2     11s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+FAIL S1_P3                              P3     12s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+FAIL S2_P3                              P3      9s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+FAIL S3_P3                              P3     10s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+FAIL K1_up                              up      1s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+PASS K2_up                              up     20s last=hdfeos5              tb=0  
+PASS K3_up                              up     20s last=hdfeos5              tb=0  
+PASS K5_up                              up     20s last=hdfeos5              tb=0  
+FAIL K1_P1                              P1      6s last=invert_network       tb=3 ifgram_inversion.py:430 distributed.comm.core.CommClosedError: in <TCP (closed) ConnectionPool.heartbeat_worker local=tcp://127.0.0.1:48036 remote=tcp://127.0.0.1:36761>: Str
+FAIL K1_P2                              P2     12s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+PASS K1_P3                              P3     19s last=hdfeos5              tb=0  
+PASS K2_P3                              P3     18s last=hdfeos5              tb=0  
+PASS K3_P3                              P3     20s last=hdfeos5              tb=0  
+FAIL B1_up                              up      1s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+PASS B2_up                              up     19s last=hdfeos5              tb=0  
+PASS B3_up                              up     20s last=hdfeos5              tb=0  
+PASS B5_up                              up     20s last=hdfeos5              tb=0  
+FAIL B1_P1                              P1      5s last=invert_network       tb=1 ifgram_inversion.py:430 IndexError: too many indices for array: array is 0-dimensional, but 1 were indexed
+FAIL B1_P2                              P2      9s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+PASS B1_P3                              P3     16s last=hdfeos5              tb=0  
+PASS B2_P3                              P3     16s last=hdfeos5              tb=0  
+PASS B3_P3                              P3     15s last=hdfeos5              tb=0  

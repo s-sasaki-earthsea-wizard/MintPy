@@ -1,0 +1,17 @@
+PASS F2_bootstrap_up                    up      3s last=hdfeos5              tb=0  
+FAIL F2_poly2_up                        up      2s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+FAIL F2_gacos_up                        up      2s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+FAIL B2_hdfeos5_up                      up      3s last=hdfeos5              tb=1 save_hdfeos5.py:102 KeyError: 'beam_mode'
+PASS F3_bootstrap_up                    up      4s last=hdfeos5              tb=0  
+PASS F3_poly2_up                        up      3s last=hdfeos5              tb=0  
+FAIL F3_gacos_up                        up      2s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+FAIL B3_hdfeos5_up                      up      2s last=hdfeos5              tb=1 save_hdfeos5.py:102 KeyError: 'beam_mode'
+PASS F5_bootstrap_up                    up      4s last=hdfeos5              tb=0  
+PASS F5_poly2_up                        up      2s last=hdfeos5              tb=0  
+FAIL F5_gacos_up                        up      2s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+FAIL B5_hdfeos5_up                      up      3s last=hdfeos5              tb=1 save_hdfeos5.py:102 KeyError: 'beam_mode'
+PASS Ffull_P3                           P3    102s last=hdfeos5              tb=0  
+FAIL raw1_up                            up      1s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL raw1_P3                            P3     20s last=geocode              tb=1 objects/resample.py:645 ValueError: zero-size array to reduction operation maximum which has no identity
+FAIL raw2_up                            up     22s last=geocode              tb=1 objects/resample.py:645 ValueError: zero-size array to reduction operation maximum which has no identity
+FAIL raw2_P3                            P3     21s last=geocode              tb=1 objects/resample.py:645 ValueError: zero-size array to reduction operation maximum which has no identity

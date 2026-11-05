@@ -1,0 +1,19 @@
+FAIL rawK1_upG                          upG     1s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+PASS rawK1_P4G                          P4G    19s last=hdfeos5              tb=0  
+PASS rawK2_upG                          upG    20s last=hdfeos5              tb=0  
+PASS rawK2_P4G                          P4G    20s last=hdfeos5              tb=0  
+FAIL rawB1_upG                          upG     2s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+PASS rawB1_P4G                          P4G    16s last=hdfeos5              tb=0  
+PASS rawB2_upG                          upG    15s last=hdfeos5              tb=0  
+PASS rawB2_P4G                          P4G    15s last=hdfeos5              tb=0  
+FAIL rawA1_upG                          upG     2s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+PASS rawA1_P4G                          P4G    14s last=hdfeos5              tb=0  
+PASS rawA2_upG                          upG    14s last=hdfeos5              tb=0  
+PASS rawA2_P4G                          P4G    13s last=hdfeos5              tb=0  
+FAIL rawF1_upG                          upG     1s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL rawF1_P4G                          P4G     3s last=correct_LOD          tb=1 smallbaselineApp.py:478 KeyError: 'PLATFORM'
+FAIL rawF2_upG                          upG     3s last=correct_LOD          tb=1 smallbaselineApp.py:478 KeyError: 'PLATFORM'
+FAIL rawF2_P4G                          P4G     3s last=correct_LOD          tb=1 smallbaselineApp.py:478 KeyError: 'PLATFORM'
+FAIL rawK1_subset_P4G                   P4G     1s last=load_data            tb=1 objects/coord.py:238 RuntimeError: No corresponding coordinate found for y/x: 1255/63
+PASS rawK1_multilook_P4G                P4G    16s last=hdfeos5              tb=0  
+PASS rawK1_gzip_P4G                     P4G    17s last=hdfeos5              tb=0  

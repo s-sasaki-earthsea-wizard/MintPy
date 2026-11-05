@@ -1,0 +1,4 @@
+PASS K1_P4                              P4     18s last=hdfeos5              tb=0  
+PASS K2_P4                              P4     18s last=hdfeos5              tb=0  
+PASS B1_P4                              P4     16s last=hdfeos5              tb=0  
+PASS B2_P4                              P4     17s last=hdfeos5              tb=0  

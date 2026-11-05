@@ -1,0 +1,9 @@
+PASS F1_cov_no_P4                       P4     20s last=hdfeos5              tb=0  
+PASS F1_cov_var_P4                      P4     36s last=hdfeos5              tb=0  
+PASS K1_cov_no_P4                       P4     17s last=hdfeos5              tb=0  
+PASS B1_cov_no_P4                       P4     19s last=hdfeos5              tb=0  
+PASS Sx1_cov_no_P4                      P4     14s last=hdfeos5              tb=0  
+PASS F2_cov_no_up                       up     21s last=hdfeos5              tb=0  
+PASS F2_cov_no_P4                       P4     21s last=hdfeos5              tb=0  
+PASS K2_cov_no_up                       up     18s last=hdfeos5              tb=0  
+PASS B2_cov_no_up                       up     20s last=hdfeos5              tb=0  

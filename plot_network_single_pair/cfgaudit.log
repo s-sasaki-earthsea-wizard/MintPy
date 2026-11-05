@@ -1,0 +1,47 @@
+PASS net_perp_big                       P4      3s last=hdfeos5              tb=0  
+FAIL net_perp_small                     P4      1s last=modify_network       tb=1 modify_network.py:344 Exception: Zero interferogram left! Please adjust your setting and try again.
+PASS net_connNum1                       P4      3s last=hdfeos5              tb=0  
+PASS net_exclude_other                  P4      3s last=hdfeos5              tb=0  
+FAIL net_exclude_kept                   P4      1s last=modify_network       tb=1 modify_network.py:344 Exception: Zero interferogram left! Please adjust your setting and try again.
+PASS net_reference                      P4      3s last=hdfeos5              tb=0  
+PASS net_dates_noop                     P4      3s last=hdfeos5              tb=0  
+PASS net_coh_maskfile                   P4      3s last=hdfeos5              tb=0  
+PASS net_coh_aoiYX                      P4      3s last=hdfeos5              tb=0  
+PASS ref_yx                             P4      3s last=hdfeos5              tb=0  
+PASS ref_mask_no                        P4      3s last=hdfeos5              tb=0  
+PASS ref_minCoh                         P4      3s last=hdfeos5              tb=0  
+PASS bridge_ramp                        P4      3s last=hdfeos5              tb=0  
+PASS bridge_water                       P4      3s last=hdfeos5              tb=0  
+PASS inv_minNorm_no                     P4      3s last=hdfeos5              tb=0  
+PASS inv_mask_coh                       P4      3s last=hdfeos5              tb=0  
+PASS inv_mask_conn                      P4      3s last=hdfeos5              tb=0  
+FAIL inv_minRedundancy2                 P4      7s last=invert_network       tb=1 smallbaselineApp.py:449 RuntimeError: Not enough reliable pixels (minimum of 100). Try the following:
+PASS inv_minTempCoh                     P4      3s last=hdfeos5              tb=0  
+FAIL inv_minNumPixel                    P4      7s last=invert_network       tb=1 smallbaselineApp.py:449 RuntimeError: Not enough reliable pixels (minimum of 100000000). Try the following:
+PASS inv_shadow                         P4      3s last=hdfeos5              tb=0  
+PASS inv_water                          P4      3s last=hdfeos5              tb=0  
+PASS inv_memory                         P4      3s last=hdfeos5              tb=0  
+PASS cluster_local                      P4      5s last=hdfeos5              tb=0  
+FAIL iono_exclude                       P4      2s last=correct_ionosphere   tb=1 modify_network.py:344 Exception: Zero interferogram left! Please adjust your setting and try again.
+PASS tropo_poly2                        P4      3s last=hdfeos5              tb=0  
+PASS tropo_poly3_looks                  P4      3s last=hdfeos5              tb=0  
+PASS tropo_minCorr                      P4      3s last=hdfeos5              tb=0  
+FAIL deramp_mask_no                     P4      2s last=deramp               tb=1 smallbaselineApp.py:720 TypeError: sequence item 4: expected str instance, bool found
+PASS topo_step                          P4      5s last=hdfeos5              tb=0  
+FAIL topo_exclude                       P4      2s last=correct_topography   tb=1 dem_error.py:452 ValueError: input poly order 2 > number of acquisition 1! Reduce it!
+PASS rms_mask_no                        P4      5s last=hdfeos5              tb=0  
+PASS rms_cutoff                         P4      5s last=hdfeos5              tb=0  
+FAIL tf_poly0                           P4      2s last=velocity             tb=1 utils/time_func.py:247 ValueError: NO time functions specified!
+FAIL tf_start                           P4      2s last=velocity             tb=1 utils/time_func.py:73 ValueError: G matrix is redundant/rank-deficient!
+FAIL tf_end                             P4      2s last=velocity             tb=1 utils/time_func.py:73 ValueError: G matrix is redundant/rank-deficient!
+FAIL tf_exclude                         P4      2s last=velocity             tb=1 utils/time_func.py:73 ValueError: G matrix is redundant/rank-deficient!
+FAIL tf_periodic                        P4      2s last=velocity             tb=1 utils/time_func.py:73 ValueError: G matrix is redundant/rank-deficient!
+FAIL tf_step                            P4      2s last=velocity             tb=1 utils/time_func.py:73 ValueError: G matrix is redundant/rank-deficient!
+FAIL tf_exp                             P4      2s last=velocity             tb=1 utils/time_func.py:73 ValueError: G matrix is redundant/rank-deficient!
+FAIL tf_log                             P4      2s last=velocity             tb=1 utils/time_func.py:73 ValueError: G matrix is redundant/rank-deficient!
+PASS geo_step                           P4      4s last=hdfeos5              tb=0  
+PASS geo_snwe                           P4      4s last=hdfeos5              tb=0  
+FAIL geo_linear                         P4      3s last=geocode              tb=1 objects/resample.py:740 AttributeError: module 'pyresample' has no attribute 'bilinear'
+PASS hdf_update                         P4      5s last=hdfeos5              tb=0  
+PASS hdf_subset                         P4      5s last=hdfeos5              tb=0  
+PASS plot_dpi                           P4      8s last=hdfeos5              tb=0  

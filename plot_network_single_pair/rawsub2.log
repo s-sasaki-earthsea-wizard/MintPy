@@ -1,0 +1,8 @@
+PASS rawF1_subset_P4G                   P4G    19s last=hdfeos5              tb=0  
+PASS rawA1_subset_P4G                   P4G    14s last=hdfeos5              tb=0  
+PASS rawF2_subset_upG                   upG    19s last=hdfeos5              tb=0  
+PASS rawA2_subset_upG                   upG    14s last=hdfeos5              tb=0  
+FAIL offset1_up                         up      1s last=                     tb=1 ifgram_inversion.py:430 IndexError: too many indices for array: array is 0-dimensional, but 1 were indexed
+FAIL offset1_P4                         P4      1s last=                     tb=1 ifgram_inversion.py:924 KeyError: 'RLOOKS'
+FAIL offset2_up                         up      1s last=                     tb=1 ifgram_inversion.py:924 KeyError: 'RLOOKS'
+FAIL offset2_P4                         P4      1s last=                     tb=1 ifgram_inversion.py:924 KeyError: 'RLOOKS'

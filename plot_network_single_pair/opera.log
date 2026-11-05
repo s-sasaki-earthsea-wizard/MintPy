@@ -1,0 +1,7 @@
+PASS F1_opera_P4                        P4     35s last=hdfeos5              tb=0  
+PASS F2_opera_up                        up     51s last=hdfeos5              tb=0  
+PASS F2_opera_P4                        P4     22s last=hdfeos5              tb=0  
+FAIL B1_opera_P4                        P4     34s last=correct_troposphere  tb=1 tropo_opera.py:800 pyproj.exceptions.CRSError: Invalid projection: EPSG:None: (Internal Proj Error: proj_create: crs not found: EPSG:None)
+FAIL B2_opera_up                        up     49s last=correct_troposphere  tb=1 tropo_opera.py:800 pyproj.exceptions.CRSError: Invalid projection: EPSG:None: (Internal Proj Error: proj_create: crs not found: EPSG:None)
+PASS Sx1_opera_P4                       P4     34s last=hdfeos5              tb=0  
+PASS Sx2_opera_up                       up     33s last=hdfeos5              tb=0  

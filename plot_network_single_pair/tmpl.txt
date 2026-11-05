@@ -1,0 +1,8 @@
+mintpy.load.processor = nisar
+mintpy.troposphericDelay.method = no
+mintpy.solidEarthTides = no
+mintpy.ionosphericDelay.method = no
+mintpy.topographicResidual = no
+mintpy.deramp = no
+mintpy.compute.maxMemory = 2
+mintpy.compute.cluster = no

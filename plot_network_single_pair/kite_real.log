@@ -1,0 +1,31 @@
+F1_ts_up   rc=0 dset=20180327_20180408
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-0.0447,0.0806] quadtree_leaves=112 times=1522151384.0..1523188184.0 node=Descending
+F1_vel_up  rc=0 dset=velocity
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-1.3621,2.4528] quadtree_leaves=112 times=1522151384.0..1523188184.0 node=Descending
+F2_ts_up   rc=0 dset=20161226_20170119
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-0.0805,0.0874] quadtree_leaves=135 times=1482752984.0..1484826584.0 node=Descending
+F2_vel_up  rc=0 dset=velocity
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-1.2626,1.3793] quadtree_leaves=135 times=1482752984.0..1484826584.0 node=Descending
+F3_ts_up   rc=0 dset=20160816_20160921
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-0.1027,0.1230] quadtree_leaves=135 times=1471348184.0..1474458584.0 node=Descending
+F3_vel_up  rc=0 dset=velocity
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-1.0578,1.3069] quadtree_leaves=132 times=1471348184.0..1474458584.0 node=Descending
+F1_ts_P4   rc=0 dset=20180327_20180408
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-0.0447,0.0806] quadtree_leaves=112 times=1522151384.0..1523188184.0 node=Descending
+F1_vel_P4  rc=0 dset=velocity
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-1.3621,2.4528] quadtree_leaves=112 times=1522151384.0..1523188184.0 node=Descending
+F2_ts_P4   rc=0 dset=20161226_20170119
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-0.0805,0.0874] quadtree_leaves=135 times=1482752984.0..1484826584.0 node=Descending
+F2_vel_P4  rc=0 dset=velocity
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-1.2626,1.3793] quadtree_leaves=135 times=1482752984.0..1484826584.0 node=Descending
+F3_ts_P4   rc=0 dset=20160816_20160921
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-0.1027,0.1230] quadtree_leaves=135 times=1471348184.0..1474458584.0 node=Descending
+F3_vel_P4  rc=0 dset=velocity
+shape=(579, 587) valid=246271 same_nan=True max_diff=0.000e+00 theta_diff=0.000e+00 phi_diff=0.000e+00 d_range=[-1.0578,1.3069] quadtree_leaves=132 times=1471348184.0..1474458584.0 node=Descending
+=== main and patched containers
+F1_ts npz_identical=True yml_identical=True
+F1_vel npz_identical=True yml_identical=True
+F2_ts npz_identical=True yml_identical=True
+F2_vel npz_identical=True yml_identical=True
+F3_ts npz_identical=True yml_identical=True
+F3_vel npz_identical=True yml_identical=True

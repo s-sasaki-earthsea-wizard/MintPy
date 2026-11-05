@@ -1,0 +1,96 @@
+diff --git a/src/mintpy/objects/stack.py b/src/mintpy/objects/stack.py
+index c350685..1b48565 100644
+--- a/src/mintpy/objects/stack.py
++++ b/src/mintpy/objects/stack.py
+@@ -967,7 +967,7 @@ class ifgramStack:
+                                   box=(self.refX, self.refY, self.refX+1, self.refY+1),
+                                   dropIfgram=dropIfgram,
+                                   print_msg=False)
+-        return ref_phase
++        return np.atleast_1d(ref_phase)
+ 
+     def nonzero_mask(self, datasetName=None, print_msg=True, dropIfgram=True):
+         """Return the common mask of pixels with non-zero value in dataset of all ifgrams.
+diff --git a/src/mintpy/plot_coherence_matrix.py b/src/mintpy/plot_coherence_matrix.py
+index b366b01..70f193f 100644
+--- a/src/mintpy/plot_coherence_matrix.py
++++ b/src/mintpy/plot_coherence_matrix.py
+@@ -159,7 +159,7 @@ class coherenceMatrixViewer():
+ 
+         # read coherence
+         box = (yx[1], yx[0], yx[1]+1, yx[0]+1)
+-        coh = readfile.read(self.ifgram_file, datasetName='coherence', box=box)[0]
++        coh = np.atleast_1d(readfile.read(self.ifgram_file, datasetName='coherence', box=box)[0])
+ 
+         # ex_date for pixel-wise masking during network inversion
+         ex_date12_list = self.ex_date12_list[:]   #local copy
+diff --git a/src/mintpy/plot_network.py b/src/mintpy/plot_network.py
+index ed54f4f..e64670a 100644
+--- a/src/mintpy/plot_network.py
++++ b/src/mintpy/plot_network.py
+@@ -53,7 +53,7 @@ def read_network_info(inps):
+             print(msg)
+ 
+     elif ext == '.txt':
+-        inps.date12List = np.loadtxt(inps.file, dtype=bytes).astype(str)[:,0].tolist()
++        inps.date12List = np.loadtxt(inps.file, dtype=bytes, ndmin=2).astype(str)[:,0].tolist()
+ 
+         # date12List --> dateList
+         mDates = [i.split('_')[0] for i in inps.date12List]
+@@ -61,13 +61,13 @@ def read_network_info(inps):
+         inps.dateList = sorted(list(set(mDates + sDates)))
+ 
+         # pbase12List + date12List --> pbaseList
+-        pbase12List = np.loadtxt(inps.file, dtype=bytes).astype(float)[:,3]
++        pbase12List = np.loadtxt(inps.file, dtype=bytes, ndmin=2).astype(float)[:,3]
+         A = ifgramStack.get_design_matrix4timeseries(inps.date12List)[0]
+         inps.pbaseList = np.zeros(len(inps.dateList), dtype=np.float32)
+         inps.pbaseList[1:] = np.linalg.lstsq(A, np.array(pbase12List), rcond=None)[0]
+ 
+         # cohList
+-        inps.cohList = np.loadtxt(inps.file, dtype=bytes).astype(float)[:,1]
++        inps.cohList = np.loadtxt(inps.file, dtype=bytes, ndmin=2).astype(float)[:,1]
+     else:
+         raise ValueError('un-recognized input file extension:', ext)
+     print(f'number of acquisitions: {len(inps.dateList)}')
+diff --git a/src/mintpy/utils/time_func.py b/src/mintpy/utils/time_func.py
+index 599bfd1..bf41a17 100644
+--- a/src/mintpy/utils/time_func.py
++++ b/src/mintpy/utils/time_func.py
+@@ -55,10 +55,13 @@ def estimate_time_func(model, date_list, dis_ts, ref_date=None, seconds=0):
+     # Opt. 1: m = np.linalg.pinv(G).dot(dis_ts)
+     # Opt. 2: m = scipy.linalg.lstsq(G, dis_ts, cond=1e-15)[0]
+     # Numpy is not used because it can not handle NaN value in dis_ts
+-    m, e2 = linalg.lstsq(G, dis_ts, cond=None)[:2]
++    m, e2, rank = linalg.lstsq(G, dis_ts, cond=None)[:3]
+ 
+     # check empty e2 due to the rank-deficient G matrix for sigularities.
+     e2 = np.array(e2)
++    if e2.size == 0 and rank == G.shape[1]:
++        # exactly-determined system: full rank with zero residual
++        e2 = np.zeros(dis_ts.shape[1:], dtype=np.float32)
+     if e2.size == 0:
+         print('\nWarning: empty e2 residues array due to a redundant or rank-deficient G matrix. This can cause sigularities.')
+         print('Please check: https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lstsq.html#scipy.linalg.lstsq')
+diff --git a/src/mintpy/utils/utils1.py b/src/mintpy/utils/utils1.py
+index 40016c4..cec49c2 100644
+--- a/src/mintpy/utils/utils1.py
++++ b/src/mintpy/utils/utils1.py
+@@ -195,7 +195,7 @@ def spatial_average(fname, datasetName='coherence', maskFile=None, box=None,
+                                                         saveList=True)
+     """
+     def read_text_file(fname):
+-        txtContent = np.loadtxt(fname, dtype=bytes).astype(str)
++        txtContent = np.loadtxt(fname, dtype=bytes, ndmin=2).astype(str)
+         meanList = [float(i) for i in txtContent[:, 1]]
+         dateList = [i for i in txtContent[:, 0]]
+         return meanList, dateList
+@@ -331,7 +331,7 @@ def spatial_average(fname, datasetName='coherence', maskFile=None, box=None,
+     # to ensure output value consistency
+     meanList, dateList = read_text_file(txtFile)
+ 
+-    if len(meanList) == 1:
++    if len(meanList) == 1 and k not in ['ifgramStack', 'timeseries']:
+         meanList = meanList[0]
+         dateList = dateList[0]
+ 

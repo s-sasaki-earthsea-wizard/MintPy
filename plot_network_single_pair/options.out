@@ -1,0 +1,91 @@
+PASS F1_baseline                        P3      2s last=hdfeos5              tb=0  
+FAIL S1_baseline                        P3      2s last=velocity             tb=1 utils/time_func.py:58 ValueError: array must not contain infs or NaNs
+PASS K1_baseline                        P3      2s last=hdfeos5              tb=0  
+PASS B1_baseline                        P3      2s last=hdfeos5              tb=0  
+PASS F1_unwrap_bridging                 P3      2s last=hdfeos5              tb=0  
+FAIL S1_unwrap_bridging                 P3      2s last=velocity             tb=1 utils/time_func.py:58 ValueError: array must not contain infs or NaNs
+FAIL F1_unwrap_phase_closure            P3      1s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL S1_unwrap_phase_closure            P3      1s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL F1_unwrap_bridging+phase_closure   P3      2s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+FAIL S1_unwrap_bridging+phase_closure   P3      1s last=correct_unwrap_error tb=1 unwrap_error_phase_closure.py:219 AttributeError: 'NoneType' object has no attribute 'astype'
+PASS F1_weight_var                      P3     15s last=hdfeos5              tb=0  
+PASS B1_weight_var                      P3     13s last=hdfeos5              tb=0  
+PASS F1_weight_fim                      P3     15s last=hdfeos5              tb=0  
+PASS B1_weight_fim                      P3     13s last=hdfeos5              tb=0  
+PASS F1_weight_coh                      P3     15s last=hdfeos5              tb=0  
+PASS B1_weight_coh                      P3     14s last=hdfeos5              tb=0  
+PASS F1_LOD_Env                         P3      2s last=hdfeos5              tb=0  
+PASS F1_SET                             P3      3s last=hdfeos5              tb=0  
+PASS B1_SET                             P3      3s last=hdfeos5              tb=0  
+PASS F1_iono_split                      P3      2s last=hdfeos5              tb=0  
+PASS B1_iono_split                      P3      2s last=hdfeos5              tb=0  
+PASS F1_tropo_pyaps                     P3      2s last=hdfeos5              tb=0  
+PASS K1_tropo_pyaps                     P3      2s last=hdfeos5              tb=0  
+PASS F1_tropo_height                    P3      2s last=hdfeos5              tb=0  
+PASS B1_tropo_height                    P3      2s last=hdfeos5              tb=0  
+FAIL F1_tropo_gacos_nodir               P3      2s last=correct_troposphere  tb=1 objects/progress.py:109 ZeroDivisionError: float division by zero
+PASS F1_deramp_linear                   P3      2s last=hdfeos5              tb=0  
+PASS B1_deramp_linear                   P3      2s last=hdfeos5              tb=0  
+PASS F1_deramp_quadratic                P3      2s last=hdfeos5              tb=0  
+PASS B1_deramp_quadratic                P3      2s last=hdfeos5              tb=0  
+PASS F1_topo_default                    P3      4s last=hdfeos5              tb=0  
+PASS B1_topo_default                    P3      5s last=hdfeos5              tb=0  
+PASS F1_topo_poly1                      P3      4s last=hdfeos5              tb=0  
+PASS B1_topo_poly1                      P3      5s last=hdfeos5              tb=0  
+PASS F1_topo_pixelwise                  P3     12s last=hdfeos5              tb=0  
+PASS B1_topo_pixelwise                  P3     12s last=hdfeos5              tb=0  
+PASS F1_topo_phasevel                   P3      5s last=hdfeos5              tb=0  
+PASS B1_topo_phasevel                   P3      5s last=hdfeos5              tb=0  
+PASS F1_rms_deramp_linear               P3      5s last=hdfeos5              tb=0  
+PASS F1_rms_deramp_no                   P3      5s last=hdfeos5              tb=0  
+PASS F1_refdate_no                      P3      2s last=hdfeos5              tb=0  
+PASS F1_refdate_first                   P3      3s last=hdfeos5              tb=0  
+PASS F1_refdate_second                  P3      3s last=hdfeos5              tb=0  
+FAIL F1_vel_bootstrap                   P3      2s last=velocity             tb=1 utils/time_func.py:73 ValueError: G matrix is redundant/rank-deficient!
+FAIL F1_vel_poly2                       P3      2s last=velocity             tb=1 utils/time_func.py:73 ValueError: G matrix is redundant/rank-deficient!
+PASS F1_geocode                         P3      4s last=hdfeos5              tb=0  
+PASS K1_geocode                         P3      3s last=hdfeos5              tb=0  
+PASS F1_kmz                             P3      7s last=hdfeos5              tb=0  
+PASS K1_kmz                             P3      7s last=hdfeos5              tb=0  
+PASS F1_hdfeos5                         P3      5s last=hdfeos5              tb=0  
+FAIL B1_hdfeos5                         P3      3s last=hdfeos5              tb=1 save_hdfeos5.py:102 KeyError: 'beam_mode'
+PASS F1_plot                            P3      9s last=hdfeos5              tb=0  
+PASS K1_plot                            P3      9s last=hdfeos5              tb=0  
+PASS B1_plot                            P3      9s last=hdfeos5              tb=0  
+PASS F1_net_coh_mst                     P3      2s last=hdfeos5              tb=0  
+FAIL F1_net_coh_nomst                   P3      1s last=modify_network       tb=1 modify_network.py:344 Exception: Zero interferogram left! Please adjust your setting and try again.
+PASS F1_net_area                        P3      2s last=hdfeos5              tb=0  
+FAIL F1_net_tbase1                      P3      1s last=modify_network       tb=1 modify_network.py:344 Exception: Zero interferogram left! Please adjust your setting and try again.
+FAIL F1_net_exclude_all                 P3      1s last=modify_network       tb=1 modify_network.py:344 Exception: Zero interferogram left! Please adjust your setting and try again.
+FAIL K5_keep1_up                        up      7s last=invert_network       tb=1 ifgram_inversion.py:430 Exception: "IndexError('too many indices for array: array is 0-dimensional, but 1 were indexed')"
+FAIL K5_keep1_P1                        P1      7s last=invert_network       tb=1 ifgram_inversion.py:430 IndexError: too many indices for array: array is 0-dimensional, but 1 were indexed
+FAIL K5_keep1_P2                        P2     13s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+PASS K5_keep1_P3                        P3     22s last=hdfeos5              tb=0  
+FAIL B5_keep1_up                        up      7s last=invert_network       tb=1 ifgram_inversion.py:430 IndexError: too many indices for array: array is 0-dimensional, but 1 were indexed
+FAIL B5_keep1_P1                        P1      8s last=invert_network       tb=3 ifgram_inversion.py:430 distributed.comm.core.CommClosedError: in <TCP (closed) ConnectionPool.heartbeat_worker local=tcp://127.0.0.1:33254 remote=tcp://127.0.0.1:36761>: Str
+FAIL B5_keep1_P2                        P2     12s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+PASS B5_keep1_P3                        P3     22s last=hdfeos5              tb=0  
+FAIL F5_keep1_up                        up      8s last=invert_network       tb=1 ifgram_inversion.py:430 IndexError: too many indices for array: array is 0-dimensional, but 1 were indexed
+FAIL F5_keep1_P1                        P1      8s last=invert_network       tb=5 ifgram_inversion.py:430 distributed.comm.core.CommClosedError: in <TCP (closed) ConnectionPool.heartbeat_worker local=tcp://127.0.0.1:33398 remote=tcp://127.0.0.1:36317>: Str
+FAIL F5_keep1_P2                        P2     16s last=velocity             tb=3 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+PASS F5_keep1_P3                        P3     27s last=hdfeos5              tb=0  
+FAIL S5_keep1_up                        up      9s last=invert_network       tb=3 ifgram_inversion.py:430 distributed.comm.core.CommClosedError: in <TCP (closed) ConnectionPool.heartbeat_worker local=tcp://127.0.0.1:37838 remote=tcp://127.0.0.1:44015>: Str
+FAIL S5_keep1_P1                        P1      8s last=invert_network       tb=3 ifgram_inversion.py:430 distributed.comm.core.CommClosedError: in <TCP (closed) ConnectionPool.heartbeat_worker local=tcp://127.0.0.1:42730 remote=tcp://127.0.0.1:44719>: Str
+FAIL S5_keep1_P2                        P2     15s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+FAIL S5_keep1_P3                        P3     15s last=velocity             tb=1 utils/time_func.py:58 ValueError: array must not contain infs or NaNs
+FAIL F1_off_up                          up      1s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL F1_off_P1                          P1      5s last=invert_network       tb=1 ifgram_inversion.py:430 IndexError: too many indices for array: array is 0-dimensional, but 1 were indexed
+FAIL F1_off_P2                          P2     15s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+PASS F1_off_P3                          P3     24s last=hdfeos5              tb=0  
+PASS F2_off_up                          up     24s last=hdfeos5              tb=0  
+PASS F3_off_up                          up     22s last=hdfeos5              tb=0  
+PASS F5_off_up                          up     24s last=hdfeos5              tb=0  
+PASS F2_off_P3                          P3     24s last=hdfeos5              tb=0  
+FAIL S1_off_up                          up      2s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+FAIL S1_off_P1                          P1      5s last=invert_network       tb=1 ifgram_inversion.py:430 IndexError: too many indices for array: array is 0-dimensional, but 1 were indexed
+FAIL S1_off_P2                          P2     11s last=velocity             tb=1 utils/time_func.py:70 ValueError: G matrix is redundant/rank-deficient!
+FAIL S1_off_P3                          P3     11s last=velocity             tb=1 utils/time_func.py:58 ValueError: array must not contain infs or NaNs
+FAIL S2_off_up                          up     11s last=velocity             tb=1 utils/time_func.py:58 ValueError: array must not contain infs or NaNs
+FAIL S3_off_up                          up     11s last=velocity             tb=1 utils/time_func.py:58 ValueError: array must not contain infs or NaNs
+FAIL S5_off_up                          up     10s last=velocity             tb=1 utils/time_func.py:58 ValueError: array must not contain infs or NaNs
+FAIL S2_off_P3                          P3     10s last=velocity             tb=1 utils/time_func.py:58 ValueError: array must not contain infs or NaNs

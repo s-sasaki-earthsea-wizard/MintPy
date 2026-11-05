@@ -1,0 +1,6 @@
+FAIL rawF1_upG                          upG     1s last=modify_network       tb=1 utils/utils1.py:199 IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+PASS rawF1_P4G                          P4G    22s last=hdfeos5              tb=0  
+PASS rawF2_upG                          upG    23s last=hdfeos5              tb=0  
+PASS rawF2_P4G                          P4G    23s last=hdfeos5              tb=0  
+FAIL rawK1_subset_P4G                   P4G     1s last=load_data            tb=1 objects/coord.py:238 RuntimeError: No corresponding coordinate found for y/x: 2455/163
+FAIL rawK2_subset_upG                   upG     1s last=load_data            tb=1 objects/coord.py:238 RuntimeError: No corresponding coordinate found for y/x: 2455/163
