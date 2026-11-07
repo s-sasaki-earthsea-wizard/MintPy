@@ -25,6 +25,7 @@ EXAMPLE = """example:
   # right: matrix view
   # show color jump same as the coherence threshold in network inversion with pixel-wised masking
   plot_coherence_matrix.py inputs/ifgramStack.h5 --cmap-vlist 0 0.4 1
+  plot_coherence_matrix.py inputs/ifgramStack.h5 --axis-format time --yx 216 310
 """
 
 
@@ -42,6 +43,11 @@ def create_parser(subparsers=None):
                         help='Point of interest in lat/lon')
     parser.add_argument('--lookup','--lut', dest='lookup_file',
                         help='Lookup file to convert lat/lon into y/x')
+
+    # format
+    parser.add_argument('--ax-fmt', '--axis-format', dest='axis_format',
+                        choices=['index', 'time'], default='time',
+                        help='Coherence matrix axis format: index or time (default: %(default)s).')
     parser.add_argument('-c','--cmap', dest='cmap_name', default='RdBu_truncate',
                         help='Colormap for coherence matrix.\nDefault: RdBu_truncate')
     parser.add_argument('--cmap-vlist', dest='cmap_vlist', type=float, nargs=3, default=[0.0, 0.7, 1.0],
@@ -56,11 +62,12 @@ def create_parser(subparsers=None):
                              'Default: view.py img_file --wrap --noverbose')
 
     # aux files
-    parser.add_argument('--tcoh', dest='tcoh_file', default='temporalCoherence.h5',
+    parser.add_argument('--tcoh', dest='tcoh_file',
                         help='temporal coherence file.')
     parser.add_argument('-t','--template', dest='template_file',
                         help='temporal file.')
 
+    # output
     parser.add_argument('--save', dest='save_fig',
                         action='store_true', help='save the figure')
     parser.add_argument('--nodisplay', dest='disp_fig',
@@ -84,6 +91,8 @@ def cmd_line_parse(iargs=None):
     mintpy_dir = os.path.dirname(os.path.dirname(inps.ifgram_file))
     if not inps.img_file:
         inps.img_file = os.path.join(mintpy_dir, 'velocity.h5')
+    if not inps.tcoh_file:
+        inps.tcoh_file = os.path.join(mintpy_dir, 'temporalCoherence.h5')
     if not inps.template_file:
         inps.template_file = os.path.join(mintpy_dir, 'smallbaselineApp.cfg')
 
@@ -114,7 +123,7 @@ def main(iargs=None):
     obj = coherenceMatrixViewer(inps)
     obj.open()
     obj.plot()
-    obj.fig.canvas.mpl_disconnect(obj.cid)
+    #obj.fig_img.canvas.mpl_disconnect(obj.cid_img)
 
 
 ############################################################
